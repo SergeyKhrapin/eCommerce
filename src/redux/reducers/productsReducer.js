@@ -1,14 +1,9 @@
 import { FETCH_PRODUCTS } from "../actionTypes"
 
-const initialState = {
-    products: []
-}
-
-export const productsReducer = (state = initialState, action) => {
+export const productsReducer = (state = [], action) => {
     switch (action.type) {
         case FETCH_PRODUCTS:
-            // do something
-            return state
+            return state.concat(action.payload)
         default:
             return state
     }
