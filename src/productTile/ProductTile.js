@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getImageSrc, getFormattedPrice } from '../helpers';
+import { getImageSrc, getFormattedPrice, getPrettyTitle } from '../helpers';
 import { VIEW_DETAILS, ADD_TO_CART, CURRENCY } from '../constants';
 import './ProductTile.scss';
 
@@ -20,7 +20,7 @@ const ProductTile = ({product: {id, image, brand, title, price}}) => {
                         alt={`${brand} - ${title}`}/>
                     <div className={`${rootClass}-overlay`}>
                         <button className={`${buttonClass} mb-4`}>
-                            <Link to={`/product/${id}/${title}`}>{VIEW_DETAILS}</Link>
+                            <Link to={`/product/${id}/${getPrettyTitle(title)}`}>{VIEW_DETAILS}</Link>
                         </button>
                         <button className={buttonClass}>{ADD_TO_CART}</button>
                     </div>
