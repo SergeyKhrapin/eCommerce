@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
 import ProductTile from '../productTile/ProductTile';
 import './Category.css';
 

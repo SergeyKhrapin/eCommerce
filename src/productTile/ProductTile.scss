@@ -9,18 +9,10 @@
         height: 260px;
         object-fit: cover;
     }
-    &-brand {
-        margin: 20px 0 0;
-        font-size: 0.8rem;
-    }
     &-title {
         margin: 8px 0 0;
         font-size: 1.1rem;
         text-transform: uppercase;
-    }
-    &-price {
-        margin: 8px 0 0;
-        color: gray;
     }
     &-overlay {
         display: none;
@@ -43,16 +35,6 @@
         }
     }
     &:hover {
-        // &:after {
-        //     content: '';
-        //     position: absolute;
-        //     top: 0;
-        //     bottom: 0;
-        //     left: 0;
-        //     right: 0;
-        //     background-color: gray;
-        //     opacity: .7;
-        // }
         .ProductTile-overlay {
             display: flex;
         }
