@@ -8,9 +8,10 @@ import './Product.scss';
 
 const Product = () => {
     const rootClass = 'Product';
-    const products = useSelector(store => store.products);
+    const products = useSelector(store => store.allProducts);
     const { id } = useParams();
-    const { image, brand, title, price, description } = getProductDetails(products, id);
+    const product = getProductDetails(products, id);
+    const { image, brand, title, price, description } = product;
     const imageSrc = getImageSrc(image);
     const priceValue = getFormattedPrice(price);
 
@@ -43,7 +44,7 @@ const Product = () => {
                             {description}
                         </p>
                         <div className={`${rootClass}-addToCart mt-4`}>
-                            <AddToCart />
+                            <AddToCart product={product} />
                         </div>
                     </div>
                 </div>

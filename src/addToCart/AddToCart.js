@@ -1,11 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { useParams } from "react-router-dom";
+import { connect } from 'react-redux';
 import { ADD_TO_CART } from '../constants';
-import { getProductDetails, getImageSrc, getFormattedPrice } from '../helpers';
+import { addProductToCart } from '../redux/actionCreators';
 import './AddToCart.scss';
 
-const AddToCart = () => {
+const AddToCart = ({product, addProductToCart}) => {
     const rootClass = 'add-to-cart';
 
     return (
@@ -17,9 +16,17 @@ const AddToCart = () => {
                     <button>-</button>
                 </div>
             </div>
-            <button className={`${rootClass}__add btn btn-dark`}>{ADD_TO_CART}</button>
+            <button
+                className={`${rootClass}__add btn btn-dark`}
+                onClick={() => addProductToCart(product)}>
+                    {ADD_TO_CART}
+            </button>
         </div>
     )
 }
 
-export default AddToCart;
+const mapDispatchToProps = {
+    addProductToCart
+}
+
+export default connect(null, mapDispatchToProps)(AddToCart);

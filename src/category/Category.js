@@ -4,7 +4,7 @@ import ProductTile from '../productTile/ProductTile';
 import './Category.css';
 
 const Category = () => {
-    const products = useSelector(store => store.products);
+    const products = useSelector(store => store.allProducts);
 
     if (!products.length) {
         return (
