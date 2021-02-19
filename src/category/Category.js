@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux'
+import ProductTile from '../productTile/ProductTile';
 import './Category.css';
 
 const Category = () => {
@@ -15,16 +16,14 @@ const Category = () => {
 
     return (
         <div className="Category">
-            <h1>Category</h1>
-            <ul>
-                { products.map((product, i) => (
-                    <li key={i}>
-                        {product.title}
-                        <br />
-                        {product.brand}
-                    </li>
-                )) }
-            </ul>
+            <div className="container">
+                <div className="row">
+                    <h1>Category</h1>
+                </div>
+                <div className="row">
+                    { products.map((product, i) => <ProductTile product={product} key={i} />) }
+                </div>
+            </div>
         </div>
     )
 }
