@@ -1,9 +1,10 @@
+import { SERVER_URL } from "../constants";
 import { FETCH_PRODUCTS, ADD_PRODUCT_TO_CART, REMOVE_PRODUCT_FROM_CART } from "./actionTypes";
 
 export const fetchProducts = () => {
     return async dispatch => {
-        const response     = await fetch('products.json')
-        const responseJSON = await response.json()
+        const response     = await fetch(SERVER_URL);
+        const responseJSON = await response.json();
 
         dispatch({
             type: FETCH_PRODUCTS,
