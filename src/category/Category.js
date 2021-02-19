@@ -1,27 +1,24 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { PRUDUCTS_UNAVAILABLE_MESSAGE } from '../constants';
 import ProductTile from '../productTile/ProductTile';
 import './Category.css';
 
 const Category = () => {
     const products = useSelector(store => store.allProducts);
 
-    if (!products.length) {
-        return (
-            <div className="Category">
-                <h1>Sorry, the products are unavailable</h1>
-            </div>
-        )
+    function renderProducts() {
+        if (!products.length) {
+            return <h1>{PRUDUCTS_UNAVAILABLE_MESSAGE}</h1>;
+        }
+        return products.map((product, i) => <ProductTile product={product} key={i} />)
     }
 
     return (
         <div className="Category">
             <div className="container">
                 <div className="row">
-                    <h1>Category</h1>
-                </div>
-                <div className="row">
-                    { products.map((product, i) => <ProductTile product={product} key={i} />) }
+                    { renderProducts() }
                 </div>
             </div>
         </div>
