@@ -4,6 +4,21 @@ body {
   font-family: sans-serif;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    color: inherit;
+}
+
+button {
+    border: none;
+    outline: none;
+    text-transform: uppercase;
+}
+
 .product-brand {
     margin: 20px 0 0;
     font-size: 0.8rem;
