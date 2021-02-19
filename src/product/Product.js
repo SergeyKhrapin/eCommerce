@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
+import AddToCart from '../addToCart/AddToCart';
 import { getProductDetails, getImageSrc, getFormattedPrice } from '../helpers';
 import { CURRENCY } from '../constants';
 import './Product.scss';
@@ -41,6 +42,9 @@ const Product = () => {
                         <p className={`${rootClass}-description`}>
                             {description}
                         </p>
+                        <div className={`${rootClass}-addToCart mt-4`}>
+                            <AddToCart />
+                        </div>
                     </div>
                 </div>
             </div>
