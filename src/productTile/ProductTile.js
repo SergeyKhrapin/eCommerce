@@ -1,5 +1,7 @@
 import React from 'react';
-import { VIEW_DETAILS, ADD_TO_CART, CURRENCY } from './constants'
+import { Link } from 'react-router-dom';
+import { getImageSrc, getFormattedPrice } from '../helpers';
+import { VIEW_DETAILS, ADD_TO_CART, CURRENCY } from '../constants';
 import './ProductTile.scss';
 
 const ProductTile = ({product: {id, image, brand, title, price}}) => {
@@ -17,8 +19,10 @@ const ProductTile = ({product: {id, image, brand, title, price}}) => {
                         className={`${rootClass}-image`}
                         alt={`${brand} - ${title}`}/>
                     <div className={`${rootClass}-overlay`}>
-                        <button className={`${rootClass}-overlay--button btn btn-dark mb-4`}>{VIEW_DETAILS}</button>
-                        <button className={`${rootClass}-overlay--button btn btn-dark`}>{ADD_TO_CART}</button>
+                        <button className={`${buttonClass} mb-4`}>
+                            <Link to={`/product/${id}/${title}`}>{VIEW_DETAILS}</Link>
+                        </button>
+                        <button className={buttonClass}>{ADD_TO_CART}</button>
                     </div>
                 </div>
                 <p className={`${rootClass}-brand product-brand`}>
