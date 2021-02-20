@@ -13,7 +13,8 @@ export const fetchProducts = () => {
     }
 }
 
-export const addProductToCart = (product, quantity) => {
+export const addProductToCart = (product, quantity = 1) => {
+    // Default value quantity = 1 is used when a product is added to cart from PLP
     return {
         type: ADD_PRODUCT_TO_CART,
         payload: { product, quantity }

@@ -10,7 +10,9 @@ const initialState = {
 export const cartReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_PRODUCT_TO_CART:
-            let { products: productsInCart, totalQuantity: productsQuantityInCart, totalPrice } = state;
+            let { products: productsInCart,
+                  totalQuantity: productsQuantityInCart,
+                  totalPrice } = state;
             let { payload: {product, quantity} } = action;
             let increasedQuantity = quantity;
 
@@ -33,6 +35,8 @@ export const cartReducer = (state = initialState, action) => {
                 }
             }
 
+            alert(`${quantity} product${quantity > 1 ? 's' : ''} ${quantity > 1 ? 'are' : 'is'} successfully added to the cart. `);
+
             return {
                 ...state,
                 products: {
@@ -47,4 +51,4 @@ export const cartReducer = (state = initialState, action) => {
         default:
             return state;
     }
-}
+};

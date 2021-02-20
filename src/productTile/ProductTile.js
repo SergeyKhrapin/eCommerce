@@ -1,10 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { addProductToCart } from '../redux/actionCreators';
 import { getImageSrc, getFormattedPrice, getPrettyTitle } from '../helpers';
 import { VIEW_DETAILS, ADD_TO_CART, CURRENCY } from '../constants';
 import './ProductTile.scss';
 
-const ProductTile = ({product: {id, image, brand, title, price}}) => {
+const ProductTile = props => {
+    const { addProductToCart, product } = props;
+    const { id, image, brand, title, price } = product;
+
     const rootClass = 'ProductTile';
     const buttonClass = `${rootClass}-overlay--button btn btn-dark`;
     const imageSrc = getImageSrc(image);
@@ -22,7 +27,11 @@ const ProductTile = ({product: {id, image, brand, title, price}}) => {
                         <button className={`${buttonClass} mb-4`}>
                             <Link to={`/product/${id}/${getPrettyTitle(title)}`}>{VIEW_DETAILS}</Link>
                         </button>
-                        <button className={buttonClass}>{ADD_TO_CART}</button>
+                        <button
+                            className={buttonClass}
+                            onClick={() => addProductToCart(product)} >
+                                {ADD_TO_CART}
+                        </button>
                     </div>
                 </div>
                 <p className={`${rootClass}-brand product-brand`}>
@@ -40,6 +49,10 @@ const ProductTile = ({product: {id, image, brand, title, price}}) => {
             </div>
         </div>
     )
-}
+};
 
-export default ProductTile;
+const mapDispatchToProps = {
+    addProductToCart
+};
+
+export default connect(null, mapDispatchToProps)(ProductTile);
