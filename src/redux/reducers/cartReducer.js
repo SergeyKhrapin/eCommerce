@@ -10,7 +10,7 @@ const initialState = {
 export const cartReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_PRODUCT_TO_CART:
-            let { products: productsInCart, totalQuantity: productsQuantityInCart } = state;
+            let { products: productsInCart, totalQuantity: productsQuantityInCart, totalPrice } = state;
             let { payload: {product, quantity} } = action;
             let increasedQuantity = quantity;
 
@@ -39,7 +39,8 @@ export const cartReducer = (state = initialState, action) => {
                     ...productsInCart,
                     [product.id]: {product, quantity: increasedQuantity}
                 },
-                totalQuantity: productsQuantityInCart + quantity
+                totalQuantity: productsQuantityInCart + quantity,
+                totalPrice: totalPrice + product.price * quantity
             };
         case REMOVE_PRODUCT_FROM_CART:
             // do something
