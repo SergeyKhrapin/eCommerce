@@ -4,5 +4,6 @@ export const ADD_TO_CART                      = 'add to cart';
 export const SERVER_URL                       = 'products.json';
 export const INCREASE                         = 'INCREASE';
 export const DECREASE                         = 'DECREASE';
-export const ONE_PRODUCT_MAX_QUANTITY_IN_CART = 10;
+export const ONE_PRODUCT_MAX_QUANTITY_IN_CART = 5;
+export const TOTAL_MAX_QUANTITY_IN_CART       = 20;
 export const CURRENCY                         = '$';

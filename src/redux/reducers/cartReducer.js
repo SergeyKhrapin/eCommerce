@@ -1,27 +1,31 @@
 import { ADD_PRODUCT_TO_CART, REMOVE_PRODUCT_FROM_CART } from "../actionTypes";
-import { ONE_PRODUCT_MAX_QUANTITY_IN_CART } from '../../constants';
-import { showWarning } from "../../helpers";
+import { ONE_PRODUCT_MAX_QUANTITY_IN_CART, TOTAL_MAX_QUANTITY_IN_CART } from '../../constants';
 
 const initialState = {
     products: {},
-    quantity: 0,
-    total: 0
+    totalQuantity: 0,
+    totalPrice: 0
 };
 
 export const cartReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_PRODUCT_TO_CART:
-            let { products } = state;
+            let { products: productsInCart, totalQuantity: productsQuantityInCart } = state;
             let { payload: {product, quantity} } = action;
+            let increasedQuantity = quantity;
 
-            for (let productID in products) {
+            if (productsQuantityInCart + quantity > TOTAL_MAX_QUANTITY_IN_CART) {
+                alert(`Max products limit in the cart - ${TOTAL_MAX_QUANTITY_IN_CART} items.`);
+                return state;
+            }
+
+            for (let productID in productsInCart) {
                 // If the product is already in the cart - increase its quantity
                 if (productID == product.id) {
-                    const thisProductQuantityInCart = products[productID].quantity;
+                    const thisProductQuantityInCart = productsInCart[productID].quantity;
                     if (thisProductQuantityInCart + quantity <= ONE_PRODUCT_MAX_QUANTITY_IN_CART) {
-                        quantity += thisProductQuantityInCart;
+                        increasedQuantity = quantity + thisProductQuantityInCart;
                     } else {
-                        // showWarning`Max limit per product in the cart - ${ONE_PRODUCT_MAX_QUANTITY_IN_CART} items. Please decrease the quantity.`;
                         alert(`Max limit per product in the cart - ${ONE_PRODUCT_MAX_QUANTITY_IN_CART} items. Please decrease the quantity.`);
                         return state;
                     }
@@ -32,9 +36,10 @@ export const cartReducer = (state = initialState, action) => {
             return {
                 ...state,
                 products: {
-                    ...state.products,
-                    [product.id]: {product, quantity}
-                }
+                    ...productsInCart,
+                    [product.id]: {product, quantity: increasedQuantity}
+                },
+                totalQuantity: productsQuantityInCart + quantity
             };
         case REMOVE_PRODUCT_FROM_CART:
             // do something
