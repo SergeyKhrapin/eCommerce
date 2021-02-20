@@ -3,15 +3,15 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { CART_HEADING, CART_OVERVIEW, CONTINUE_SHOPPING, SUBTOTAL, TOTAL } from '../constants';
 import { getFormattedPrice } from '../helpers';
-import './Cart.scss';
 import CartItem from './CartItem';
+import './Cart.scss';
 
 const Cart = () => {
     const { products, totalPrice } = useSelector(state => state.cart);
     const totalPriceValue = getFormattedPrice(totalPrice);
 
     function renderProducts() {
-        return Object.values(products).map(product => <CartItem product={product} />);
+        return Object.values(products).map((product, i) => <CartItem product={product} key={i} />);
     }
 
     return (
