@@ -43,7 +43,7 @@ const ProductTile = props => {
                 <p className={`${rootClass}-price product-price`}>
                     <meta itemProp="priceCurrency" content="USD" />
                     <span itemProp="price" content={priceValue}>
-                        {CURRENCY}{priceValue}
+                        {priceValue}
                     </span>
                 </p>
             </div>

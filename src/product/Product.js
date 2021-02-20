@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
 import AddToCart from '../addToCart/AddToCart';
 import { getProductDetails, getImageSrc, getFormattedPrice } from '../helpers';
-import { CURRENCY } from '../constants';
 import './Product.scss';
 
 const Product = () => {
@@ -37,7 +36,7 @@ const Product = () => {
                         <p className={`${rootClass}-price product-price`}>
                             <meta itemProp="priceCurrency" content="USD" />
                             <span itemProp="price" content={priceValue}>
-                                {CURRENCY}{priceValue}
+                                {priceValue}
                             </span>
                         </p>
                         <p className={`${rootClass}-description`}>
