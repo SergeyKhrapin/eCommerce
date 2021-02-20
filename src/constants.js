@@ -10,6 +10,7 @@ export const CURRENCY                         = '$';
 
 // Cart
 export const CART_HEADING                     = 'Shopping Cart';
+export const CART_EMPTY                       = 'Your cart is empty.'
 export const PRODUCT                          = 'Product';
 export const QUANTITY                         = 'Quantity';
 export const TOTAL                            = 'Total';
