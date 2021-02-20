@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { PRUDUCTS_UNAVAILABLE_MESSAGE } from '../constants';
-import ProductTile from '../productTile/ProductTile';
+import ProductTile from './ProductTile';
 import './Category.css';
 
 const Category = () => {
