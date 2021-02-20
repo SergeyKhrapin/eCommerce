@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { ADD_TO_CART, INCREASE, DECREASE, ONE_PRODUCT_MAX_QUANTITY_IN_CART } from '../constants';
 import { addProductToCart } from '../redux/actionCreators';
+import { ADD_TO_CART, INCREASE, DECREASE, ONE_PRODUCT_MAX_QUANTITY_IN_CART } from '../constants';
 import './AddToCart.scss';
 
-const AddToCart = (props) => {
+const AddToCart = props => {
     let { product, addProductToCart } = props;
     let [ quantity, setQuantity ] = useState(1);
     const rootClass = 'add-to-cart';
@@ -44,10 +44,10 @@ const AddToCart = (props) => {
             </button>
         </div>
     )
-}
+};
 
 const mapDispatchToProps = {
     addProductToCart
-}
+};
 
 export default connect(null, mapDispatchToProps)(AddToCart);
