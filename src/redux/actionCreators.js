@@ -13,13 +13,10 @@ export const fetchProducts = () => {
     }
 }
 
-export const addProductToCart = product => {
+export const addProductToCart = (product, quantity) => {
     return {
         type: ADD_PRODUCT_TO_CART,
-        payload: {
-            product: product,
-            quantity: 1
-        }
+        payload: { product, quantity }
     }
 }
 
