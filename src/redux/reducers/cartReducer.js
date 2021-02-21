@@ -8,12 +8,14 @@ const initialState = {
 };
 
 export const cartReducer = (state = initialState, action) => {
-    switch (action.type) {
+    let { products: productsInCart,
+        totalQuantity: productsQuantityInCart,
+        totalPrice } = state;
+    let { type, payload } = action;
+    let { product, quantity } = payload ?? {};
+    
+    switch (type) {
         case ADD_PRODUCT_TO_CART:
-            let { products: productsInCart,
-                  totalQuantity: productsQuantityInCart,
-                  totalPrice } = state;
-            let { payload: {product, quantity} } = action;
             let increasedQuantity = quantity;
 
             if (productsQuantityInCart + quantity > TOTAL_MAX_QUANTITY_IN_CART) {
@@ -35,7 +37,7 @@ export const cartReducer = (state = initialState, action) => {
                 }
             }
 
-            alert(`${quantity} product${quantity > 1 ? 's' : ''} ${quantity > 1 ? 'are' : 'is'} successfully added to the cart. `);
+            // alert(`${quantity} product${quantity > 1 ? 's' : ''} ${quantity > 1 ? 'are' : 'is'} successfully added to the cart. `);
 
             return {
                 ...state,
@@ -46,8 +48,20 @@ export const cartReducer = (state = initialState, action) => {
                 totalQuantity: productsQuantityInCart + quantity,
                 totalPrice: totalPrice + product.price * quantity
             };
+
         case REMOVE_PRODUCT_FROM_CART:
-            // do something
+            return {
+                ...state,
+                products: {
+                    ...productsInCart,
+                    [product.id]: {
+                        product,
+                        quantity: --state.products[product.id].quantity
+                    }
+                },
+                totalQuantity: --state.totalQuantity,
+                totalPrice: totalPrice - product.price
+            };
         default:
             return state;
     }

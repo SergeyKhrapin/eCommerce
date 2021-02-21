@@ -1,5 +1,6 @@
-import { COLOR } from "../constants";
+import AddToCart from "./AddToCart";
 import { getImageSrc, getFormattedPrice } from "../helpers";
+import { COLOR } from "../constants";
 import './CartItem.scss';
 
 const CartItem = ({product}) => {
@@ -25,7 +26,9 @@ const CartItem = ({product}) => {
                     </div>
                 </div>
                 <div className="col-2">
-                    <div className="CartItem-quantity">{quantity}</div>
+                    <div className="CartItem-quantity">
+                        <AddToCart product={product.product} quantity={quantity} />
+                    </div>
                 </div>
                 <div className="col-2">
                     <p className="CartItem-price">{priceValue}</p>

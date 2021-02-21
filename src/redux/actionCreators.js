@@ -14,16 +14,16 @@ export const fetchProducts = () => {
 }
 
 export const addProductToCart = (product, quantity = 1) => {
-    // Default value quantity = 1 is used when a product is added to cart from PLP
+    // Default value quantity = 1 is used when a product is added to cart from PLP or its quantity increased from Cart page
     return {
         type: ADD_PRODUCT_TO_CART,
         payload: { product, quantity }
     }
 }
 
-export const removeProductFromCart = productID => {
+export const removeProductFromCart = (product, quantity = 1) => {
     return {
         type: REMOVE_PRODUCT_FROM_CART,
-        payload: productID
+        payload: { product, quantity }
     }
 }
