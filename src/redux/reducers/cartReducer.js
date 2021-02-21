@@ -1,4 +1,4 @@
-import { ADD_PRODUCT_TO_CART, REMOVE_PRODUCT_FROM_CART } from "../actionTypes";
+import { ADD_PRODUCT_TO_CART, DECREASE_PRODUCT_QUANTITY_IN_CART, REMOVE_PRODUCT_FROM_CART } from "../actionTypes";
 import { ONE_PRODUCT_MAX_QUANTITY_IN_CART, TOTAL_MAX_QUANTITY_IN_CART } from '../../constants';
 
 const initialState = {
@@ -49,7 +49,7 @@ export const cartReducer = (state = initialState, action) => {
                 totalPrice: totalPrice + product.price * quantity
             };
 
-        case REMOVE_PRODUCT_FROM_CART:
+        case DECREASE_PRODUCT_QUANTITY_IN_CART:
             return {
                 ...state,
                 products: {
@@ -62,6 +62,17 @@ export const cartReducer = (state = initialState, action) => {
                 totalQuantity: --state.totalQuantity,
                 totalPrice: totalPrice - product.price
             };
+
+        case REMOVE_PRODUCT_FROM_CART:
+            // Remove a product without mutation
+            const { [product.id]: omit, ...updatedProductsInCart } = productsInCart;
+            return {
+                ...state,
+                products: updatedProductsInCart,
+                totalQuantity: state.totalQuantity - quantity,
+                totalPrice: totalPrice - product.price * quantity
+            };
+
         default:
             return state;
     }

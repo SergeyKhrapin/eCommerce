@@ -1,11 +1,15 @@
+import React from 'react';
+import { connect } from 'react-redux';
 import AddToCart from "./AddToCart";
+import { removeProductFromCart } from '../redux/actionCreators';
 import { getImageSrc, getFormattedPrice } from "../helpers";
 import { COLOR } from "../constants";
 import './CartItem.scss';
 
-const CartItem = ({product}) => {
-    const { product: {id, image, brand, title, price, color},
-            quantity } = product;
+const CartItem = props => {
+    const { item, removeProductFromCart } = props;
+    const { product, quantity } = item;
+    const { image, brand, title, price, color } = product;
     const imageSrc = getImageSrc(image);
     const priceValue = getFormattedPrice(price, quantity);
 
@@ -27,18 +31,24 @@ const CartItem = ({product}) => {
                 </div>
                 <div className="col-2">
                     <div className="CartItem-quantity">
-                        <AddToCart product={product.product} quantity={quantity} />
+                        <AddToCart product={product} quantity={quantity} />
                     </div>
                 </div>
                 <div className="col-2">
                     <p className="CartItem-price">{priceValue}</p>
                 </div>
                 <div className="col-1 d-flex justify-content-end text-end">
-                    <button className="CartItem-remove"></button>
+                    <button
+                        className="CartItem-remove"
+                        onClick={() => removeProductFromCart(product, quantity)}></button>
                 </div>
             </div>
         </div>
     );
 };
 
-export default CartItem;
+const mapDispatchToProps = {
+    removeProductFromCart
+};
+
+export default connect(null, mapDispatchToProps)(CartItem);

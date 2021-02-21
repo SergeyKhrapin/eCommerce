@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import ProductQuantity from '../productQuantity/ProductQuantity';
-import { addProductToCart, removeProductFromCart } from '../redux/actionCreators';
+import { addProductToCart, decreaseProductQuantityInCart } from '../redux/actionCreators';
 import { INCREASE, DECREASE, ONE_PRODUCT_MAX_QUANTITY_IN_CART } from '../constants';
 import '../productQuantity/ProductQuantity.scss';
 
@@ -9,35 +9,31 @@ const AddToCart = props => {
     let { product,
           quantity: productQuantity,
           addProductToCart,
-          removeProductFromCart } = props;
-
-    let [ quantity, setQuantity ] = useState(productQuantity);
+          decreaseProductQuantityInCart } = props;
 
     function handleQuantity(e) {
         switch (e.target.id) {
             case INCREASE:
-                if (quantity < ONE_PRODUCT_MAX_QUANTITY_IN_CART) {
-                    setQuantity(quantity => ++quantity);
+                if (productQuantity < ONE_PRODUCT_MAX_QUANTITY_IN_CART) {
                     addProductToCart(product);
                 }
                 break;
             case DECREASE:
-                if (quantity > 1) {
-                    setQuantity(quantity => --quantity);
-                    removeProductFromCart(product);
+                if (productQuantity > 1) {
+                    decreaseProductQuantityInCart(product);
                 }
                 break;
         }
     }
 
-    const propsObj = { handleQuantity, quantity };
+    const propsObj = { handleQuantity, product };
 
     return <ProductQuantity {...propsObj} />;
 };
 
 const mapDispatchToProps = {
     addProductToCart,
-    removeProductFromCart
+    decreaseProductQuantityInCart
 };
 
 export default connect(null, mapDispatchToProps)(AddToCart);

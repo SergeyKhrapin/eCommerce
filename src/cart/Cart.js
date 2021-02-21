@@ -12,7 +12,7 @@ const Cart = () => {
 
     function renderCartCaption() {
         return (
-            <div className="Cart-products-caption">
+            <div className="Cart-products-caption" key={1}>
                 <div className="row">
                     <div className="col-7 text-start">{PRODUCT}</div>
                     <div className="col-2">{QUANTITY}</div>
@@ -24,12 +24,12 @@ const Cart = () => {
     }
 
     function renderCartProducts() {
-        return Object.values(products).map((product, i) => <CartItem product={product} key={i} />);
+        return Object.values(products).map((product, i) => <CartItem item={product} key={i} />);
     }
 
     function renderCartOverview() {
         return (
-            <div className="Cart-products-overview">
+            <div className="Cart-products-overview" key={3}>
                 <div className="col-6 offset-md-6">
                     <p className="Cart-products-overview--title">{CART_OVERVIEW}</p>
                     <div className="Cart-products-overview--subtotal">
