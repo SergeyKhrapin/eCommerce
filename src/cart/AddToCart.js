@@ -30,9 +30,9 @@ const AddToCart = props => {
         }
     }
 
-    return (
-        <ProductQuantity handleQuantity={handleQuantity} quantity={quantity} />
-    )
+    const propsObj = { handleQuantity, quantity };
+
+    return <ProductQuantity {...propsObj} />;
 };
 
 const mapDispatchToProps = {

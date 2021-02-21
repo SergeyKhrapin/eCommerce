@@ -4,14 +4,14 @@ import './ProductQuantity.scss';
 
 const ProductQuantity = ({ handleQuantity, quantity }) => {
     return (
-        <div className="add-to-cart">
-            <div className="add-to-cart__control">
+        <div className="product-quantity">
+            <div className="product-quantity__control">
                 <input
-                    className="add-to-cart__control--quantity"
+                    className="product-quantity__control--quantity"
                     value={quantity}
                     type="text"
                     readOnly />
-                <div className="add-to-cart__control--buttons" onClick={handleQuantity}>
+                <div className="product-quantity__control--buttons" onClick={handleQuantity}>
                     <button id={INCREASE}>+</button>
                     <button id={DECREASE}>-</button>
                 </div>

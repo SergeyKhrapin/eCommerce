@@ -20,4 +20,11 @@
         border-bottom: 1px solid lightgray;
         line-height: 1.6;
     }
+    &-addToCart {
+        display: flex;
+        justify-content: center;
+        &--button {
+            margin-left: 12px;
+        }
+    }
 }

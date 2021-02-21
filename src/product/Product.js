@@ -6,7 +6,6 @@ import { getProductDetails, getImageSrc, getFormattedPrice } from '../helpers';
 import './Product.scss';
 
 const Product = () => {
-    const rootClass = 'Product';
     const products = useSelector(store => store.allProducts);
     const { id } = useParams();
     const product = getProductDetails(products, id);
@@ -15,34 +14,34 @@ const Product = () => {
     const priceValue = getFormattedPrice(price);
 
     return (
-        <div className={rootClass}>
+        <div className="Product">
             <div className="container">
                 <div className="row">
                     <div className="col-7">
-                        <div className={`${rootClass}-imageSection`}>
+                        <div className="Product-imageSection">
                             <img
                                 src={imageSrc}
-                                className={`${rootClass}-image`}
+                                className="Product-image"
                                 alt={`${brand} - ${title}`} />
                         </div>
                     </div>
                     <div className="col-5">
-                        <p className={`${rootClass}-brand product-brand`}>
+                        <p className="Product-brand product-brand">
                             {brand}
                         </p>
-                        <h1 className={`${rootClass}-title`}>
+                        <h1 className="Product-title">
                             {title}
                         </h1>
-                        <p className={`${rootClass}-price product-price`}>
+                        <p className="Product-price product-price">
                             <meta itemProp="priceCurrency" content="USD" />
                             <span itemProp="price" content={priceValue}>
                                 {priceValue}
                             </span>
                         </p>
-                        <p className={`${rootClass}-description`}>
+                        <p className="Product-description">
                             {description}
                         </p>
-                        <div className={`${rootClass}-addToCart mt-4`}>
+                        <div className="Product-addToCart mt-4">
                             <AddToCart product={product} />
                         </div>
                     </div>

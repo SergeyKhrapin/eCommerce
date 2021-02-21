@@ -30,7 +30,7 @@ const AddToCart = props => {
         <>
             <ProductQuantity {...propsObj} />
             <button
-                className="add-to-cart__add btn btn-dark"
+                className="Product-addToCart--button btn btn-dark"
                 onClick={() => addProductToCart(product, quantity)}>
                     {ADD_TO_CART}
             </button>
