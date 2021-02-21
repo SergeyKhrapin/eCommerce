@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
-import AddToCart from '../addToCart/AddToCart';
+import AddToCart from './AddToCart';
 import { getProductDetails, getImageSrc, getFormattedPrice } from '../helpers';
 import './Product.scss';
 

@@ -1,25 +1,29 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import ProductQuantity from '../productQuantity/ProductQuantity';
 import { addProductToCart, removeProductFromCart } from '../redux/actionCreators';
-import { ADD_TO_CART, INCREASE, DECREASE, ONE_PRODUCT_MAX_QUANTITY_IN_CART } from '../constants';
-import '../addToCart/AddToCart.scss';
+import { INCREASE, DECREASE, ONE_PRODUCT_MAX_QUANTITY_IN_CART } from '../constants';
+import '../productQuantity/ProductQuantity.scss';
 
 const AddToCart = props => {
-    let { product, quantity, addProductToCart, removeProductFromCart } = props;
-    let [ productQuantity, setQuantity ] = useState(quantity);
-    const rootClass = 'add-to-cart';
+    let { product,
+          quantity: productQuantity,
+          addProductToCart,
+          removeProductFromCart } = props;
+
+    let [ quantity, setQuantity ] = useState(productQuantity);
 
     function handleQuantity(e) {
         switch (e.target.id) {
             case INCREASE:
-                if (productQuantity < ONE_PRODUCT_MAX_QUANTITY_IN_CART) {
-                    setQuantity(productQuantity => ++productQuantity);
+                if (quantity < ONE_PRODUCT_MAX_QUANTITY_IN_CART) {
+                    setQuantity(quantity => ++quantity);
                     addProductToCart(product);
                 }
                 break;
             case DECREASE:
-                if (productQuantity > 1) {
-                    setQuantity(productQuantity => --productQuantity);
+                if (quantity > 1) {
+                    setQuantity(quantity => --quantity);
                     removeProductFromCart(product);
                 }
                 break;
@@ -27,19 +31,7 @@ const AddToCart = props => {
     }
 
     return (
-        <div className={rootClass}>
-            <div className={`${rootClass}__control`}>
-                <input
-                    className={`${rootClass}__control--quantity`}
-                    value={productQuantity}
-                    type="text"
-                    readOnly />
-                <div className={`${rootClass}__control--buttons`} onClick={handleQuantity}>
-                    <button id={INCREASE}>+</button>
-                    <button id={DECREASE}>-</button>
-                </div>
-            </div>
-        </div>
+        <ProductQuantity handleQuantity={handleQuantity} quantity={quantity} />
     )
 };
 
