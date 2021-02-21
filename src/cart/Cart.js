@@ -8,10 +8,22 @@ import './Cart.scss';
 
 const Cart = () => {
     const { products, totalPrice, totalQuantity } = useSelector(state => state.cart);
-    console.log(totalQuantity);
     const totalPriceValue = getFormattedPrice(totalPrice);
 
-    function renderProducts() {
+    function renderCartCaption() {
+        return (
+            <div className="Cart-products-caption">
+                <div className="row">
+                    <div className="col-7 text-start">{PRODUCT}</div>
+                    <div className="col-2">{QUANTITY}</div>
+                    <div className="col-2">{TOTAL}</div>
+                    <div className="col-1 text-end">{ACTION}</div>
+                </div>
+            </div>
+        );
+    }
+
+    function renderCartProducts() {
         return Object.values(products).map((product, i) => <CartItem product={product} key={i} />);
     }
 
@@ -33,8 +45,17 @@ const Cart = () => {
         );
     }
 
+    const renders = [renderCartCaption, renderCartProducts, renderCartOverview];
+
     function renderCartEmpty() {
         return <h2>{CART_EMPTY}</h2>;
+    }
+
+    function renderCartContent() {
+        if (!totalQuantity) {
+            return renderCartEmpty();
+        }
+        return renders.map(render => render());
     }
 
     return (
@@ -45,17 +66,7 @@ const Cart = () => {
                 </div>
                 <div className="row">
                     <section className="Cart-products">
-                        <div className="Cart-products-caption">
-                            <div className="row">
-                                <div className="col-7 text-start">{PRODUCT}</div>
-                                <div className="col-2">{QUANTITY}</div>
-                                <div className="col-2">{TOTAL}</div>
-                                <div className="col-1 text-end">{ACTION}</div>
-                            </div>
-                        </div>
-                        { totalQuantity > 0 && renderProducts() }
-                        { totalQuantity > 0 && renderCartOverview() }
-                        { totalQuantity == 0 && renderCartEmpty() }
+                        { renderCartContent() }
                     </section>
                 </div>
             </div>
