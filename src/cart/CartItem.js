@@ -12,7 +12,7 @@ const CartItem = ({product}) => {
     return (
         <div className="CartItem">
             <div className="row">
-                <div className="col-6">
+                <div className="col-7">
                     <div className="CartItem-details">
                         <img
                             className="CartItem-details--image"
@@ -33,11 +33,8 @@ const CartItem = ({product}) => {
                 <div className="col-2">
                     <p className="CartItem-price">{priceValue}</p>
                 </div>
-                <div className="col-2">
-                    <button
-                        className="CartItem-remove">
-                        x
-                    </button>
+                <div className="col-1 d-flex justify-content-end text-end">
+                    <button className="CartItem-remove"></button>
                 </div>
             </div>
         </div>

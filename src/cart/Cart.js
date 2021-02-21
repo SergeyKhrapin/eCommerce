@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { CART_HEADING, CART_OVERVIEW, CONTINUE_SHOPPING, SUBTOTAL, TOTAL, CART_EMPTY } from '../constants';
+import { CART_HEADING, CART_OVERVIEW, CONTINUE_SHOPPING, SUBTOTAL, TOTAL, CART_EMPTY, PRODUCT, QUANTITY, ACTION } from '../constants';
 import { getFormattedPrice } from '../helpers';
 import CartItem from './CartItem';
 import './Cart.scss';
@@ -45,6 +45,14 @@ const Cart = () => {
                 </div>
                 <div className="row">
                     <section className="Cart-products">
+                        <div className="Cart-products-caption">
+                            <div className="row">
+                                <div className="col-7 text-start">{PRODUCT}</div>
+                                <div className="col-2">{QUANTITY}</div>
+                                <div className="col-2">{TOTAL}</div>
+                                <div className="col-1 text-end">{ACTION}</div>
+                            </div>
+                        </div>
                         { totalQuantity > 0 && renderProducts() }
                         { totalQuantity > 0 && renderCartOverview() }
                         { totalQuantity == 0 && renderCartEmpty() }
