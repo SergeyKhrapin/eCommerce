@@ -11,7 +11,7 @@ const Product = () => {
     const isAlert = useSelector(store => store.cart.alert);
     const { id } = useParams();
     const product = getProductDetails(products, id);
-    const { image, brand, title, price, description } = product;
+    const { image, brand, title, price, description } = product || {};
     const imageSrc = getImageSrc(image);
     const priceValue = getFormattedPrice(price);
 
