@@ -15,6 +15,10 @@ const Product = () => {
     const imageSrc = getImageSrc(image);
     const priceValue = getFormattedPrice(price);
 
+    if (product == undefined) {
+        return <h2>Something went wrong. Please go to Home and reload the page.</h2>;
+    }
+
     return (
         <div className="Product">
             <div className="container">
