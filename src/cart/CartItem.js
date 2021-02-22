@@ -39,7 +39,7 @@ const CartItem = props => {
                 </div>
                 <div className="col-1 d-flex justify-content-end text-end">
                     <button
-                        className="CartItem-remove"
+                        className="CartItem-remove remove-button"
                         onClick={() => removeProductFromCart(product, quantity)}></button>
                 </div>
             </div>

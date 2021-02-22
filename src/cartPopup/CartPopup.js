@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { openCartPopup, closeCartPopup } from '../redux/actionCreators';
+import { openCartPopup, closeCartPopup, removeProductFromCart } from '../redux/actionCreators';
 import { getImageSrc, getFormattedPrice } from '../helpers';
 import { CART_POPUP, CART_EMPTY, TOTAL, VIEW_CART, CHECKOUT } from '../constants';
 import './CartPopup.scss';
 
 const CartPopup = props => {
-    const { products, totalPrice, openCartPopup, closeCartPopup, openPopup } = props;
+    const { products, totalPrice, totalQuantity, removeProductFromCart, openCartPopup, closeCartPopup, openPopup } = props;
 
     function renderCartPopup() {
         return (
@@ -32,6 +32,10 @@ const CartPopup = props => {
                                             <span className="CartPopup-details--brand product-brand">{brand}</span>
                                             <span className="CartPopup-details--price">{getFormattedPrice(price)}</span>
                                         </div>
+                                        <button
+                                            className="CartPopup-remove remove-button"
+                                            onClick={() => removeProductFromCart(product, quantity)}>
+                                        </button>
                                     </div>
                                 </div>
                             );
@@ -78,7 +82,11 @@ const CartPopup = props => {
                 <div className="container">
                     <div className="row">
                         <div className="col-2 offset-md-10 text-end">
-                            <span className="CartPopup-open--link" onClick={openCartPopup}>{CART_POPUP}</span>
+                            <span
+                                className="CartPopup-open--link"
+                                onClick={openCartPopup}>
+                                    {`${CART_POPUP} ${totalQuantity ? `(${totalQuantity})` : ''}`}
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -92,11 +100,13 @@ const mapStateToProps = state => {
     return {
         products: Object.values(state.cart.products),
         totalPrice: state.cart.totalPrice,
+        totalQuantity: state.cart.totalQuantity,
         openPopup: state.cart.openPopup
     };
 };
 
 const mapDispatchToProps = {
+    removeProductFromCart,
     openCartPopup,
     closeCartPopup
 };

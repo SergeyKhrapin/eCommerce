@@ -29,3 +29,29 @@ button {
     margin: 8px 0 0;
     color: gray;
 }
+
+.remove-button {
+    position: relative;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    background-color: transparent;
+}
+
+.remove-button:before,
+.remove-button:after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    background-color: gray;
+    left: 0;
+    right: 0;
+}
+
+.remove-button:before {
+    transform: rotate(45deg);
+}
+
+.remove-button:after {
+    transform: rotate(-45deg);
+}
