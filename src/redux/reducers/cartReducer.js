@@ -57,10 +57,10 @@ export const cartReducer = (state = initialState, action) => {
                     ...productsInCart,
                     [product.id]: {
                         product,
-                        quantity: --state.products[product.id].quantity
+                        quantity: state.products[product.id].quantity - 1
                     }
                 },
-                totalQuantity: --state.totalQuantity,
+                totalQuantity: state.totalQuantity - 1,
                 totalPrice: totalPrice - product.price
             };
 
