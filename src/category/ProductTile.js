@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addProductToCart } from '../redux/actionCreators';
-import { getImageSrc, getFormattedPrice, getPrettyTitle } from '../helpers';
+import { getImageSrc, getFormattedPrice, getPrettyTitleURL } from '../helpers';
 import { VIEW_DETAILS, ADD_TO_CART, CURRENCY } from '../constants';
 import './ProductTile.scss';
 
@@ -25,7 +25,7 @@ const ProductTile = props => {
                         alt={`${brand} - ${title}`}/>
                     <div className={`${rootClass}-overlay`}>
                         <button className={`${buttonClass} mb-4`}>
-                            <Link to={`/product/${id}/${getPrettyTitle(title)}`}>{VIEW_DETAILS}</Link>
+                            <Link to={`/product/${id}/${getPrettyTitleURL(title)}`}>{VIEW_DETAILS}</Link>
                         </button>
                         <button
                             className={buttonClass}

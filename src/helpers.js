@@ -6,4 +6,4 @@ export const getFormattedPrice = (price, multiplier = 1) => CURRENCY + '' + Numb
 
 export const getProductDetails = (products, id) => products.find(product => parseInt(id) === parseInt(product.id));
 
-export const getPrettyTitle = title => title.replaceAll(/\s/g, '-');
+export const getPrettyTitleURL = title => title.replaceAll(/\s/g, '-');
