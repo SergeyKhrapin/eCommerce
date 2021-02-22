@@ -1,16 +1,17 @@
-import { ADD_PRODUCT_TO_CART, DECREASE_PRODUCT_QUANTITY_IN_CART, REMOVE_PRODUCT_FROM_CART } from "../actionTypes";
-import { ONE_PRODUCT_MAX_QUANTITY_IN_CART, TOTAL_MAX_QUANTITY_IN_CART } from '../../constants';
+import { ADD_PRODUCT_TO_CART, DECREASE_PRODUCT_QUANTITY_IN_CART, HIDE_ALERT, REMOVE_PRODUCT_FROM_CART, SHOW_ALERT } from "../actionTypes";
+import { ONE_PRODUCT_MAX_QUANTITY_IN_CART, ONE_PRODUCT_MAX_QUANTITY_ALERT, TOTAL_MAX_QUANTITY_IN_CART, TOTAL_MAX_QUANTITY_ALERT } from '../../constants';
 
 const initialState = {
     products: {},
     totalQuantity: 0,
-    totalPrice: 0
+    totalPrice: 0,
+    alert: null
 };
 
 export const cartReducer = (state = initialState, action) => {
     let { products: productsInCart,
-        totalQuantity: productsQuantityInCart,
-        totalPrice } = state;
+          totalQuantity: productsQuantityInCart,
+          totalPrice } = state;
     let { type, payload } = action;
     let { product, quantity } = payload ?? {};
     
@@ -19,7 +20,6 @@ export const cartReducer = (state = initialState, action) => {
             let increasedQuantity = quantity;
 
             if (productsQuantityInCart + quantity > TOTAL_MAX_QUANTITY_IN_CART) {
-                alert(`Max products limit in the cart - ${TOTAL_MAX_QUANTITY_IN_CART} items.`);
                 return state;
             }
 
@@ -30,7 +30,6 @@ export const cartReducer = (state = initialState, action) => {
                     if (thisProductQuantityInCart + quantity <= ONE_PRODUCT_MAX_QUANTITY_IN_CART) {
                         increasedQuantity = quantity + thisProductQuantityInCart;
                     } else {
-                        alert(`Max limit per product in the cart - ${ONE_PRODUCT_MAX_QUANTITY_IN_CART} items. Please decrease the quantity.`);
                         return state;
                     }
                     break;
@@ -71,6 +70,27 @@ export const cartReducer = (state = initialState, action) => {
                 products: updatedProductsInCart,
                 totalQuantity: state.totalQuantity - quantity,
                 totalPrice: totalPrice - product.price * quantity
+            };
+
+        case SHOW_ALERT:
+            if (productsInCart[product.id]?.quantity + quantity > ONE_PRODUCT_MAX_QUANTITY_IN_CART) {
+                return {
+                    ...state,
+                    alert: ONE_PRODUCT_MAX_QUANTITY_ALERT
+                };
+            }
+            if (productsQuantityInCart + quantity > TOTAL_MAX_QUANTITY_IN_CART) {
+                return {
+                    ...state,
+                    alert: TOTAL_MAX_QUANTITY_ALERT
+                };
+            }
+            return state;
+
+        case HIDE_ALERT:
+            return {
+                ...state,
+                alert: false
             };
 
         default:

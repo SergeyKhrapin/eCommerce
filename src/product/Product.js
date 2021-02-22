@@ -2,11 +2,13 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
 import AddToCart from './AddToCart';
+import Alert from '../alert/Alert';
 import { getProductDetails, getImageSrc, getFormattedPrice } from '../helpers';
 import './Product.scss';
 
 const Product = () => {
     const products = useSelector(store => store.allProducts);
+    const isAlert = useSelector(store => store.cart.alert);
     const { id } = useParams();
     const product = getProductDetails(products, id);
     const { image, brand, title, price, description } = product;
@@ -16,6 +18,7 @@ const Product = () => {
     return (
         <div className="Product">
             <div className="container">
+                { isAlert && <Alert /> }
                 <div className="row">
                     <div className="col-7">
                         <div className="Product-imageSection">
