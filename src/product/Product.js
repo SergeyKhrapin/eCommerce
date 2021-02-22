@@ -11,11 +11,11 @@ const Product = () => {
     const isAlert = useSelector(store => store.cart.alert);
     const { id } = useParams();
     const product = getProductDetails(products, id);
-    const { image, brand, title, price, description } = product || {};
+    const { id: ID, image, brand, title, price, description } = product;
     const imageSrc = getImageSrc(image);
     const priceValue = getFormattedPrice(price);
 
-    if (product == undefined) {
+    if (id != ID) {
         return <h2>Something went wrong. Please go to Home and reload the page.</h2>;
     }
 
