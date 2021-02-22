@@ -18,6 +18,8 @@ export const ADD_TO_CART                      = 'add to cart';
 // Cart page
 export const CART_HEADING                     = 'Shopping Cart';
 export const CART_EMPTY                       = 'Your cart is empty.'
+export const VIEW_CART                        = 'View cart';
+export const CART_POPUP                       = 'My cart'
 export const PRODUCT                          = 'Product';
 export const QUANTITY                         = 'Quantity';
 export const TOTAL                            = 'Total';

@@ -2,6 +2,11 @@
   text-align: center;
 }
 
+.App.cartPopup-opened {
+    overflow: hidden;
+    height: 100vh;
+}
+
 .App-logo {
   height: 80px;
 }

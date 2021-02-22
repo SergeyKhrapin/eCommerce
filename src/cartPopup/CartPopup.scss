@@ -1,0 +1,52 @@
+.CartPopup {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 3;
+    width: 30%;
+    min-width: 400px;
+    padding: 16px 4px;
+    background-color: white;
+    &-open {
+        &--link {
+            cursor: pointer;
+        }
+    }
+    &-close {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 2;
+        background-color: black;
+        opacity: .6;
+    }
+    &-image {
+        width: 80px;
+        height: 80px;
+        margin-right: 16px;
+        object-fit: cover;
+    }
+    &-details {
+        display: flex;
+        flex-direction: column;
+        font-size: .8rem;
+        &--title {
+            margin: 0;
+            font-weight: bold;
+            font-size: .9rem;
+        }
+        &--brand {
+            margin: 2px 0 0;
+        }
+        &--price {
+            font-weight: bold;
+        }
+    }
+    &-viewCart, &-checkout {
+        button {
+            width: 100%;
+        }
+    }
+}

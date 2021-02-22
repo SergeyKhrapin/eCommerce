@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
 import logo from './logo.svg';
 import Category from "./category/Category";
 import Cart from "./cart/Cart";
 import Product from "./product/Product";
+import CartPopup from './cartPopup/CartPopup';
 import './App.css';
 
 class App extends Component {
+    constructor() {
+        super();
+    }
+
     render() {
         return (
-            <div className="App">
-                <header className="App-header">
+            <div className={`App${this.props.openPopup ? ' cartPopup-opened' : ''}`}>
+                {/* <header className="App-header">
                     <img src={logo} className="App-logo" alt="logo" />
                     <h1 className="App-title">Storefront Assignment</h1>
                 </header>
@@ -19,11 +25,9 @@ class App extends Component {
         </p>
                 <p className="App-intro">
                     We've setup the bare minimum you need to get started, but feel free to add as many components as you see fit.
-        </p>
+        </p> */}
 
-                <header>
-                    <Link to="/cart">My Cart</Link>
-                </header>
+                <CartPopup />
 
                 <Route exact path="/" component={Category} />
                 <Route path="/cart" component={Cart} />
@@ -33,4 +37,10 @@ class App extends Component {
     }
 }
 
-export default App;
+const mapStateToProps = state => {
+    return {
+        openPopup: state.cart.openPopup
+    };
+};
+
+export default connect(mapStateToProps)(App);

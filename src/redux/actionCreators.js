@@ -1,5 +1,5 @@
 import { SERVER_URL, ALERT_HIDE_DELAY } from "../constants";
-import { FETCH_PRODUCTS, ADD_PRODUCT_TO_CART, DECREASE_PRODUCT_QUANTITY_IN_CART, REMOVE_PRODUCT_FROM_CART, SHOW_ALERT, HIDE_ALERT } from "./actionTypes";
+import { FETCH_PRODUCTS, ADD_PRODUCT_TO_CART, DECREASE_PRODUCT_QUANTITY_IN_CART, REMOVE_PRODUCT_FROM_CART, SHOW_ALERT, HIDE_ALERT, OPEN_CART_POPUP, CLOSE_CART_POPUP } from "./actionTypes";
 
 export const fetchProducts = () => {
     return async dispatch => {
@@ -44,5 +44,17 @@ export const removeProductFromCart = (product, quantity) => {
 export const hideAlert = () => {
     return {
         type: HIDE_ALERT
+    }
+};
+
+export const openCartPopup = () => {
+    return {
+        type: OPEN_CART_POPUP
+    }
+};
+
+export const closeCartPopup = () => {
+    return {
+        type: CLOSE_CART_POPUP
     }
 };

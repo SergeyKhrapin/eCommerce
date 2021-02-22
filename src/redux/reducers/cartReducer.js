@@ -1,11 +1,12 @@
-import { ADD_PRODUCT_TO_CART, DECREASE_PRODUCT_QUANTITY_IN_CART, HIDE_ALERT, REMOVE_PRODUCT_FROM_CART, SHOW_ALERT } from "../actionTypes";
+import { ADD_PRODUCT_TO_CART, CLOSE_CART_POPUP, DECREASE_PRODUCT_QUANTITY_IN_CART, HIDE_ALERT, OPEN_CART_POPUP, REMOVE_PRODUCT_FROM_CART, SHOW_ALERT } from "../actionTypes";
 import { ONE_PRODUCT_MAX_QUANTITY_IN_CART, ONE_PRODUCT_MAX_QUANTITY_ALERT, TOTAL_MAX_QUANTITY_IN_CART, TOTAL_MAX_QUANTITY_ALERT, PRODUCT_SUCCESSFULLY_ADDED_ALERT } from '../../constants';
 
 const initialState = {
     products: {},
     totalQuantity: 0,
     totalPrice: 0,
-    alert: null
+    alert: null,
+    openPopup: null
 };
 
 export const cartReducer = (state = initialState, action) => {
@@ -78,6 +79,18 @@ export const cartReducer = (state = initialState, action) => {
                 ...state,
                 alert: false
             };
+
+        case OPEN_CART_POPUP:
+            return {
+                ...state,
+                openPopup: true
+            }
+
+        case CLOSE_CART_POPUP:
+            return {
+                ...state,
+                openPopup: false
+            }
 
         default:
             return state;
