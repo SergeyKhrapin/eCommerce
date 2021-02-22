@@ -1,5 +1,5 @@
 import { ADD_PRODUCT_TO_CART, DECREASE_PRODUCT_QUANTITY_IN_CART, HIDE_ALERT, REMOVE_PRODUCT_FROM_CART, SHOW_ALERT } from "../actionTypes";
-import { ONE_PRODUCT_MAX_QUANTITY_IN_CART, ONE_PRODUCT_MAX_QUANTITY_ALERT, TOTAL_MAX_QUANTITY_IN_CART, TOTAL_MAX_QUANTITY_ALERT } from '../../constants';
+import { ONE_PRODUCT_MAX_QUANTITY_IN_CART, ONE_PRODUCT_MAX_QUANTITY_ALERT, TOTAL_MAX_QUANTITY_IN_CART, TOTAL_MAX_QUANTITY_ALERT, PRODUCT_SUCCESSFULLY_ADDED_ALERT } from '../../constants';
 
 const initialState = {
     products: {},
@@ -38,8 +38,6 @@ export const cartReducer = (state = initialState, action) => {
                 };
             }
 
-            // alert(`${quantity} product${quantity > 1 ? 's' : ''} ${quantity > 1 ? 'are' : 'is'} successfully added to the cart. `);
-
             return {
                 ...state,
                 products: {
@@ -47,7 +45,8 @@ export const cartReducer = (state = initialState, action) => {
                     [product.id]: {product, quantity: increasedQuantity}
                 },
                 totalQuantity: productsQuantityInCart + quantity,
-                totalPrice: totalPrice + product.price * quantity
+                totalPrice: totalPrice + product.price * quantity,
+                alert: PRODUCT_SUCCESSFULLY_ADDED_ALERT
             };
 
         case DECREASE_PRODUCT_QUANTITY_IN_CART:

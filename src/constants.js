@@ -6,6 +6,7 @@ export const ONE_PRODUCT_MAX_QUANTITY_IN_CART = 5;
 export const ONE_PRODUCT_MAX_QUANTITY_ALERT   = `Max limit per product in the cart - ${ONE_PRODUCT_MAX_QUANTITY_IN_CART} items.`;
 export const TOTAL_MAX_QUANTITY_IN_CART       = 20;
 export const TOTAL_MAX_QUANTITY_ALERT         = `Max products limit in the cart - ${TOTAL_MAX_QUANTITY_IN_CART} items.`;
+export const PRODUCT_SUCCESSFULLY_ADDED_ALERT = 'Product is successfully added to the cart.';
 export const ALERT_HIDE_DELAY                 = 5000;
 export const CURRENCY                         = '$';
 
