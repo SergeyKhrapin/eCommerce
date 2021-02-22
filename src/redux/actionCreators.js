@@ -15,10 +15,16 @@ export const fetchProducts = () => {
 
 export const addProductToCart = (product, quantity = 1) => {
     // Default value quantity = 1 is used when a product is added to cart from PLP or its quantity increased from Cart page
-    return {
-        type: ADD_PRODUCT_TO_CART,
-        payload: { product, quantity }
-    }
+    return dispatch => {
+        dispatch({
+            type: ADD_PRODUCT_TO_CART,
+            payload: { product, quantity }
+        });
+
+        setTimeout(() => {
+            dispatch(hideAlert());
+        }, ALERT_HIDE_DELAY);
+    };
 };
 
 export const decreaseProductQuantityInCart = (product, quantity = 1) => {
@@ -32,19 +38,6 @@ export const removeProductFromCart = (product, quantity) => {
     return {
         type: REMOVE_PRODUCT_FROM_CART,
         payload: { product, quantity }
-    }
-};
-
-export const showAlert = (product, quantity, message) => {
-    return dispatch => {
-        dispatch({
-            type: SHOW_ALERT,
-            payload: { product, quantity, message }
-        });
-
-        setTimeout(() => {
-            dispatch(hideAlert());
-        }, ALERT_HIDE_DELAY);
     }
 };
 

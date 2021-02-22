@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import ProductQuantity from '../productQuantity/ProductQuantity';
-import { addProductToCart, showAlert } from '../redux/actionCreators';
+import { addProductToCart } from '../redux/actionCreators';
 import { ADD_TO_CART, INCREASE, DECREASE, ONE_PRODUCT_MAX_QUANTITY_IN_CART } from '../constants';
 import '../productQuantity/ProductQuantity.scss';
 
 const AddToCart = props => {
-    let { product, addProductToCart, showAlert } = props;
+    let { product, addProductToCart } = props;
     let [ quantity, setQuantity ] = useState(1);
 
     function handleQuantity(e) {
@@ -24,11 +24,6 @@ const AddToCart = props => {
         }
     }
 
-    function addProduct() {
-        showAlert(product, quantity);
-        addProductToCart(product, quantity);
-    }
-
     const propsObj = { handleQuantity, quantity };
 
     return (
@@ -36,7 +31,7 @@ const AddToCart = props => {
             <ProductQuantity {...propsObj} />
             <button
                 className="Product-addToCart--button btn btn-dark"
-                onClick={addProduct}>
+                onClick={() => addProductToCart(product, quantity)}>
                     {ADD_TO_CART}
             </button>
         </>
@@ -44,8 +39,7 @@ const AddToCart = props => {
 };
 
 const mapDispatchToProps = {
-    addProductToCart,
-    showAlert
+    addProductToCart
 };
 
 export default connect(null, mapDispatchToProps)(AddToCart);

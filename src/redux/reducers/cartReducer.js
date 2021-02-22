@@ -17,23 +17,25 @@ export const cartReducer = (state = initialState, action) => {
     
     switch (type) {
         case ADD_PRODUCT_TO_CART:
-            let increasedQuantity = quantity;
+            // If the product is already in the cart - increase its quantity
+            // If there is no yet this product in the cart:
+            // ~~undefined?.quantity + quantity >>> ~~undefined + quantity >>> 0 + quantity
+            let increasedQuantity = ~~productsInCart[product.id]?.quantity + quantity;
 
+            // Max limit all products in the cart reached
             if (productsQuantityInCart + quantity > TOTAL_MAX_QUANTITY_IN_CART) {
-                return state;
+                return {
+                    ...state,
+                    alert: TOTAL_MAX_QUANTITY_ALERT
+                };
             }
-
-            for (let productID in productsInCart) {
-                // If the product is already in the cart - increase its quantity
-                if (productID == product.id) {
-                    const thisProductQuantityInCart = productsInCart[productID].quantity;
-                    if (thisProductQuantityInCart + quantity <= ONE_PRODUCT_MAX_QUANTITY_IN_CART) {
-                        increasedQuantity = quantity + thisProductQuantityInCart;
-                    } else {
-                        return state;
-                    }
-                    break;
-                }
+            
+            // Max limit per one product in the cart reached
+            if (increasedQuantity > ONE_PRODUCT_MAX_QUANTITY_IN_CART) {
+                return {
+                    ...state,
+                    alert: ONE_PRODUCT_MAX_QUANTITY_ALERT
+                };
             }
 
             // alert(`${quantity} product${quantity > 1 ? 's' : ''} ${quantity > 1 ? 'are' : 'is'} successfully added to the cart. `);
@@ -71,21 +73,6 @@ export const cartReducer = (state = initialState, action) => {
                 totalQuantity: state.totalQuantity - quantity,
                 totalPrice: totalPrice - product.price * quantity
             };
-
-        case SHOW_ALERT:
-            if (productsInCart[product.id]?.quantity + quantity > ONE_PRODUCT_MAX_QUANTITY_IN_CART) {
-                return {
-                    ...state,
-                    alert: ONE_PRODUCT_MAX_QUANTITY_ALERT
-                };
-            }
-            if (productsQuantityInCart + quantity > TOTAL_MAX_QUANTITY_IN_CART) {
-                return {
-                    ...state,
-                    alert: TOTAL_MAX_QUANTITY_ALERT
-                };
-            }
-            return state;
 
         case HIDE_ALERT:
             return {
