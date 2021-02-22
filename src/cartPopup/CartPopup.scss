@@ -5,9 +5,13 @@
     z-index: 3;
     width: 30%;
     min-width: 400px;
-    padding: 16px 4px;
+    padding: 26px 4px 16px;
     background-color: white;
     &-open {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        height: 100%;
         &--link {
             cursor: pointer;
         }

@@ -79,17 +79,11 @@ const CartPopup = props => {
     return (
         <>
             <div className="CartPopup-open">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-2 offset-md-10 text-end">
-                            <span
-                                className="CartPopup-open--link"
-                                onClick={openCartPopup}>
-                                    {`${CART_POPUP} ${totalQuantity ? `(${totalQuantity})` : ''}`}
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                <span
+                    className="CartPopup-open--link"
+                    onClick={openCartPopup}>
+                        {`${CART_POPUP} ${totalQuantity ? `(${totalQuantity})` : ''}`}
+                </span>
             </div>
            { openPopup && renderCartPopup() } 
         </>

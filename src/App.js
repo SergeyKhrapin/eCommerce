@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
-import logo from './logo.svg';
+import { Route, Link } from 'react-router-dom';
+import logo from './logo.png';
 import Category from "./category/Category";
 import Cart from "./cart/Cart";
 import Product from "./product/Product";
 import CartPopup from './cartPopup/CartPopup';
-import './App.css';
+import './App.scss';
 
 class App extends Component {
     constructor() {
@@ -16,18 +16,29 @@ class App extends Component {
     render() {
         return (
             <div className={`App${this.props.openPopup ? ' cartPopup-opened' : ''}`}>
-                {/* <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h1 className="App-title">Storefront Assignment</h1>
+                <header className="App-header">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-2">
+                                <img src={logo} className="App-header-logo" alt="logo" />
+                            </div>
+                            <div className="col-8">
+                                <nav className="App-header-nav">
+                                    <ul className="App-header-nav--list">
+                                        <li><Link to="/">HOME</Link></li>
+                                        <li><a href="#">SHOP</a></li>
+                                        <li><a href="#">JOURNAL</a></li>
+                                        <li><a href="#">MORE</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <div className="col-2">
+                                <CartPopup />
+                            </div>
+                        </div>
+                    </div>
                 </header>
-                <p className="App-intro">
-                    To get started, delete this header and introduction, and begin building your app in the provided components.
-        </p>
-                <p className="App-intro">
-                    We've setup the bare minimum you need to get started, but feel free to add as many components as you see fit.
-        </p> */}
 
-                <CartPopup />
 
                 <Route exact path="/" component={Category} />
                 <Route path="/cart" component={Cart} />
