@@ -24,7 +24,7 @@ const Cart = () => {
     }
 
     function renderCartProducts() {
-        return Object.values(products).map((product, i) => <CartItem item={product} key={i} />);
+        return Object.values(products).map((product, i) => <CartItem item={product} key={product.product.id} />);
     }
 
     function renderCartOverview() {

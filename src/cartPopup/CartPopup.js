@@ -18,9 +18,9 @@ const CartPopup = props => {
                         { !products.length && renderEmptyCartMessage() }
                         { products.map((item, i) => {
                             const { product, quantity } = item;
-                            const { image, brand, title, price } = product;
+                            const { id, image, brand, title, price } = product;
                             return (
-                                <div className="row" key={i}>
+                                <div className="row" key={id}>
                                     <div className="col-12 d-flex text-start mb-4">
                                         <img
                                             className="CartPopup-image"

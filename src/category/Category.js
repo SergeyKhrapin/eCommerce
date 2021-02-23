@@ -18,7 +18,7 @@ const Category = () => {
         if (!products.length) {
             return <h1>{PRUDUCTS_UNAVAILABLE_MESSAGE}</h1>;
         }
-        return products.map((product, i) => <ProductTile product={product} key={i} />)
+        return products.map((product, i) => <ProductTile product={product} key={product.id} />)
     }
 
     return (
