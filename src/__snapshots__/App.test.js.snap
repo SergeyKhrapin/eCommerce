@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App component renders: correctly without products 1`] = `
+<div
+  className="App"
+>
+  <header
+    className="App-header"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col-2"
+        >
+          <img
+            alt="logo"
+            className="App-header-logo"
+            src="logo.png"
+          />
+        </div>
+        <div
+          className="col-8"
+        >
+          <nav
+            className="App-header-nav"
+          >
+            <ul
+              className="App-header-nav--list"
+            >
+              <li>
+                <a
+                  href="/"
+                  onClick={[Function]}
+                >
+                  HOME
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                >
+                  SHOP
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                >
+                  JOURNAL
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                >
+                  MORE
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div
+          className="col-2"
+        >
+          <div
+            className="CartPopup-open"
+          >
+            <span
+              className="CartPopup-open--link"
+              onClick={[Function]}
+            >
+              My cart (5)
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div
+    className="Category"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col-12"
+        >
+          <div
+            className="Category-banner"
+          >
+            <img
+              alt="Home page banner"
+              className="Category-banner--image"
+              src="/media/plates-header.jpg"
+            />
+            <div
+              className="Category-banner--content"
+            >
+              <h1>
+                Plates
+              </h1>
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum eveniet rem ad culpa quidem incidunt laborum accusamus eius earum animi aliquid corporis inventore ex, dignissimos consequuntur expedita, vitae distinctio odit.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row mt-5"
+      >
+        <h1>
+          The products are unavailable. Sorry for inconvenience.
+        </h1>
+      </div>
+    </div>
+  </div>
+</div>
+`;
