@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addProductToCart } from '../redux/actionCreators';
 import { getImageSrc, getFormattedPrice, getPrettyTitleURL } from '../helpers';
-import { VIEW_DETAILS, ADD_TO_CART, CURRENCY } from '../constants';
+import { VIEW_DETAILS, ADD_TO_CART } from '../constants';
 import './ProductTile.scss';
 
 const ProductTile = props => {
