@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
 import logo from './logo.png';
 import Category from "./category/Category";
@@ -8,50 +8,39 @@ import Product from "./product/Product";
 import CartPopup from './cartPopup/CartPopup';
 import './App.scss';
 
-class App extends Component {
-    constructor() {
-        super();
-    }
+const App = () => {
+    const openPopup = useSelector(state => state.cart.openPopup);
 
-    render() {
-        return (
-            <div className={`App${this.props.openPopup ? ' cartPopup-opened' : ''}`}>
-                <header className="App-header">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-2">
-                                <img src={logo} className="App-header-logo" alt="logo" />
-                            </div>
-                            <div className="col-8">
-                                <nav className="App-header-nav">
-                                    <ul className="App-header-nav--list">
-                                        <li><Link to="/">HOME</Link></li>
-                                        <li><a href="#">SHOP</a></li>
-                                        <li><a href="#">JOURNAL</a></li>
-                                        <li><a href="#">MORE</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                            <div className="col-2">
-                                <CartPopup />
-                            </div>
+    return (
+        <div className={`App${openPopup ? ' cartPopup-opened' : ''}`}>
+            <header className="App-header">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-2">
+                            <img src={logo} className="App-header-logo" alt="logo" />
+                        </div>
+                        <div className="col-8">
+                            <nav className="App-header-nav">
+                                <ul className="App-header-nav--list">
+                                    <li><Link to="/">HOME</Link></li>
+                                    <li><a href="#">SHOP</a></li>
+                                    <li><a href="#">JOURNAL</a></li>
+                                    <li><a href="#">MORE</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div className="col-2">
+                            <CartPopup />
                         </div>
                     </div>
-                </header>
+                </div>
+            </header>
 
-
-                <Route exact path="/" component={Category} />
-                <Route path="/cart" component={Cart} />
-                <Route path="/product/:id/:title" component={Product} />
-            </div>
-        );
-    }
-}
-
-const mapStateToProps = state => {
-    return {
-        openPopup: state.cart.openPopup
-    };
+            <Route exact path="/" component={Category} />
+            <Route path="/cart" component={Cart} />
+            <Route path="/product/:id/:title" component={Product} />
+        </div>
+    );
 };
 
-export default connect(mapStateToProps)(App);
+export default App;
