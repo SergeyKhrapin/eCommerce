@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import renderer from 'react-test-renderer';
@@ -193,5 +194,38 @@ describe('App component renders:', () => {
 
         let tree = component.toJSON();
         expect(tree).toMatchSnapshot();
+    });
+});
+
+describe('Fetch products:', () => {
+    const mockProducts = [
+        { id: 1000001, price: 40, title: 'MASHIKO' },
+        { id: 1000002, price: 60, title: 'HEME' },
+    ];
+
+    const action = {
+        type: actionTypes.FETCH_PRODUCTS,
+        payload: { allProducts: mockProducts }
+    };
+
+    const middlewares = [thunk];
+    const mockStore = configureStore(middlewares);
+
+    it('should return an action object with products', async () => {
+        window.fetch = jest.fn().mockImplementation(() => ({
+            status: 200,
+            json: () => new Promise((resolve, reject) => {
+                resolve({
+                    allProducts: mockProducts
+                })
+            })
+        }))
+
+        const store = mockStore({});
+
+        await store.dispatch(actionCreators.fetchProducts());
+        const actions = store.getActions();
+
+        expect(actions[0]).toEqual(action);
     });
 });
