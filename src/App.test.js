@@ -6,10 +6,10 @@ import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
 import App from './App';
 import { getFormattedPrice, getPrettyTitleURL, getProductDetails } from './helpers';
-import { addProductToCart, decreaseProductQuantityInCart, removeProductFromCart, hideAlert, openCartPopup, closeCartPopup } from './redux/actionCreators';
-import { ADD_PRODUCT_TO_CART, DECREASE_PRODUCT_QUANTITY_IN_CART, REMOVE_PRODUCT_FROM_CART } from './redux/actionTypes';
+import * as actionCreators from './redux/actionCreators';
+import * as actionTypes from './redux/actionTypes';
 import { cartReducer } from './redux/reducers/cartReducer';
-import { TOTAL_MAX_QUANTITY_IN_CART, TOTAL_MAX_QUANTITY_ALERT, ONE_PRODUCT_MAX_QUANTITY_IN_CART, ONE_PRODUCT_MAX_QUANTITY_ALERT } from './constants';
+import * as constant from './constants';
 
 const stateMock = {
     products: {
@@ -40,23 +40,33 @@ describe('Helper: ', () => {
     it('getFormattedPrice should transform number 40 to $40.00', () => {
         expect(getFormattedPrice(40)).toBe('$40.00');
     });
-    
+
     it('getPrettyTitleURL should replace spaces with dashes', () => {
         expect(getPrettyTitleURL('Blue Stripe Stoneware Plate')).toBe('Blue-Stripe-Stoneware-Plate');
     });
-    
+
     it('getProductDetails should return a product or empty object', () => {
         expect(getProductDetails([])).toBeDefined();
     });
 });
 
 describe('Action creator:', () => {
+    const product = { id: 1000003, price: 40, title: 'MASHIKO' };
+    const action = {
+        type: actionTypes.DECREASE_PRODUCT_QUANTITY_IN_CART,
+        payload: { product, quantity: 1 }
+    }
+
+    it('should return an action object', () => {
+        expect(actionCreators.decreaseProductQuantityInCart(product)).toStrictEqual(action);
+    });
+
     it('should return an object with type field', () => {
-        expect(decreaseProductQuantityInCart()).toHaveProperty('type');
-        expect(removeProductFromCart()).toHaveProperty('type');
-        expect(hideAlert()).toHaveProperty('type');
-        expect(openCartPopup()).toHaveProperty('type');
-        expect(closeCartPopup()).toHaveProperty('type');
+        expect(actionCreators.decreaseProductQuantityInCart()).toHaveProperty('type');
+        expect(actionCreators.removeProductFromCart()).toHaveProperty('type');
+        expect(actionCreators.hideAlert()).toHaveProperty('type');
+        expect(actionCreators.openCartPopup()).toHaveProperty('type');
+        expect(actionCreators.closeCartPopup()).toHaveProperty('type');
     });
 });
 
@@ -87,41 +97,41 @@ describe('Add product to the cart:', () => {
     };
     const action = {
         ...actionMock,
-        type: ADD_PRODUCT_TO_CART
+        type: actionTypes.ADD_PRODUCT_TO_CART
     };
 
-    const state1 = {...state, totalQuantity: 19};
-    const action1 = {...action};
+    const state1 = { ...state, totalQuantity: 19 };
+    const action1 = { ...action };
     action1.payload.quantity = 2;
     const updatedState1 = cartReducer(state1, action1);
 
     it('if total products quantity in cart will exceed max limit - product is not added and alert is displayed', () => {
-        expect(updatedState1.totalQuantity).toBeLessThanOrEqual(TOTAL_MAX_QUANTITY_IN_CART);
-        expect(updatedState1.alert).toBe(TOTAL_MAX_QUANTITY_ALERT);
+        expect(updatedState1.totalQuantity).toBeLessThanOrEqual(constant.TOTAL_MAX_QUANTITY_IN_CART);
+        expect(updatedState1.alert).toBe(constant.TOTAL_MAX_QUANTITY_ALERT);
     });
 
-    const state2 = {...state};
-    const action2 = {...action};
+    const state2 = { ...state };
+    const action2 = { ...action };
     action2.payload.quantity = 6;
     const updatedState2 = cartReducer(state2, action2);
 
     it('if product quantity in cart will exceed max limit per one product - product is not added and alert is displayed', () => {
         expect(updatedState2.products[action2.payload.product.id]).not.toBeDefined();
-        expect(updatedState2.alert).toBe(ONE_PRODUCT_MAX_QUANTITY_ALERT);
+        expect(updatedState2.alert).toBe(constant.ONE_PRODUCT_MAX_QUANTITY_ALERT);
     });
 });
 
 describe('Remove product from the cart should lead to:', () => {
-    const state = {...stateMock};
+    const state = { ...stateMock };
     const action = {
         ...actionMock,
-        type: REMOVE_PRODUCT_FROM_CART
+        type: actionTypes.REMOVE_PRODUCT_FROM_CART
     };
 
     const updatedState = cartReducer(state, action);
     const { products: updatedProducts,
-            totalQuantity: updatedTotalQuantity,
-            totalPrice: updatedTotalPrice } = updatedState;
+        totalQuantity: updatedTotalQuantity,
+        totalPrice: updatedTotalPrice } = updatedState;
 
     it('remove product id field from cart products object', () => {
         expect(updatedProducts).not.toHaveProperty([action.payload.product.id]);
@@ -137,18 +147,18 @@ describe('Remove product from the cart should lead to:', () => {
 });
 
 describe('Decrease a product quantity in the cart should lead to:', () => {
-    const state = {...stateMock};
+    const state = { ...stateMock };
     const action = {
         ...actionMock,
-        type: DECREASE_PRODUCT_QUANTITY_IN_CART
+        type: actionTypes.DECREASE_PRODUCT_QUANTITY_IN_CART
     };
 
     const updatedState = cartReducer(state, action);
     const { id: productID, price: productPrice } = action.payload.product;
     const { totalQuantity: initialTotalQuantity,
-            totalPrice: initialTotalPrice } = state;
+        totalPrice: initialTotalPrice } = state;
     const { totalQuantity: updatedTotalQuantity,
-            totalPrice: updatedTotalPrice } = updatedState;
+        totalPrice: updatedTotalPrice } = updatedState;
     const initialProductQuantity = state.products[productID].quantity;
     const updatedProductQuantity = updatedState.products[productID].quantity;
 
