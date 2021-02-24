@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
 import App from './App';
-import { getFormattedPrice, getPrettyTitleURL, getProductDetails } from './helpers';
+import * as helpers from './helpers';
 import * as actionCreators from './redux/actionCreators';
 import * as actionTypes from './redux/actionTypes';
 import { cartReducer } from './redux/reducers/cartReducer';
@@ -39,15 +39,15 @@ const actionMock = {
 
 describe('Helper: ', () => {
     it('getFormattedPrice should transform number 40 to $40.00', () => {
-        expect(getFormattedPrice(40)).toBe('$40.00');
+        expect(helpers.getFormattedPrice(40)).toBe('$40.00');
     });
 
     it('getPrettyTitleURL should replace spaces with dashes', () => {
-        expect(getPrettyTitleURL('Blue Stripe Stoneware Plate')).toBe('Blue-Stripe-Stoneware-Plate');
+        expect(helpers.getPrettyTitleURL('Blue Stripe Stoneware Plate')).toBe('Blue-Stripe-Stoneware-Plate');
     });
 
     it('getProductDetails should return a product or empty object', () => {
-        expect(getProductDetails([])).toBeDefined();
+        expect(helpers.getProductDetails([])).toBeDefined();
     });
 });
 
@@ -71,21 +71,18 @@ describe('Action creator:', () => {
     });
 });
 
-it('reducer should always return a state object', () => {
-    const initialStateMock = {
-        ...stateMock,
-        products: {},
-        totalQuantity: 0,
-        totalPrice: 0,
-        alert: null,
-        openPopup: null
-    };
-
-    expect(cartReducer(initialStateMock, actionMock)).toHaveProperty('products');
-    expect(cartReducer(initialStateMock, actionMock)).toHaveProperty('totalQuantity');
-    expect(cartReducer(initialStateMock, actionMock)).toHaveProperty('totalPrice');
-    expect(cartReducer(initialStateMock, actionMock)).toHaveProperty('alert');
-    expect(cartReducer(initialStateMock, actionMock)).toHaveProperty('openPopup');
+describe('Reducer:', () => {
+    it('should always return a state object', () => {
+        const initialStateMock = {
+            products: {},
+            totalQuantity: 0,
+            totalPrice: 0,
+            alert: null,
+            openPopup: null
+        };
+        const actionMock = {type: 'SOME_NON_EXISTENT_TYPE'};
+        expect(cartReducer(initialStateMock, actionMock)).toEqual(initialStateMock);
+    });
 });
 
 describe('Add product to the cart:', () => {
@@ -123,56 +120,92 @@ describe('Add product to the cart:', () => {
 });
 
 describe('Remove product from the cart should lead to:', () => {
-    const state = { ...stateMock };
-    const action = {
-        ...actionMock,
-        type: actionTypes.REMOVE_PRODUCT_FROM_CART
-    };
+    let state, action, updatedState;
 
-    const updatedState = cartReducer(state, action);
-    const { products: updatedProducts,
-        totalQuantity: updatedTotalQuantity,
-        totalPrice: updatedTotalPrice } = updatedState;
+    beforeEach(() => {
+        state = {
+            products: {
+                1000001: {
+                    product: { id: 1000001, price: 50, title: "Heme" },
+                    quantity: 2
+                },
+                1000003: {
+                    product: { id: 1000003, price: 40, title: 'MASHIKO' },
+                    quantity: 3
+                }
+            },
+            totalQuantity: 5,
+            totalPrice: 220,
+            alert: null,
+            openPopup: null
+        };
+
+        action = {
+            type: actionTypes.REMOVE_PRODUCT_FROM_CART,
+            payload: {
+                product: { id: 1000003, price: 40, title: 'MASHIKO' },
+                quantity: 3
+            }
+        };
+
+        updatedState = cartReducer(state, action);
+    });
 
     it('remove product id field from cart products object', () => {
-        expect(updatedProducts).not.toHaveProperty([action.payload.product.id]);
+        expect(updatedState.products).not.toHaveProperty([action.payload.product.id]);
     });
 
     it('reduce total products quantity by quantity of removed product', () => {
-        expect(updatedTotalQuantity).toEqual(state.totalQuantity - action.payload.quantity);
+        expect(updatedState.totalQuantity).toEqual(state.totalQuantity - action.payload.quantity);
     });
 
     it('reduce total price by total price of removed product', () => {
-        expect(updatedTotalPrice).toEqual(state.totalPrice - action.payload.product.price * action.payload.quantity);
+        expect(updatedState.totalPrice).toEqual(state.totalPrice - action.payload.product.price * action.payload.quantity);
     });
 });
 
 describe('Decrease a product quantity in the cart should lead to:', () => {
-    const state = { ...stateMock };
-    const action = {
-        ...actionMock,
-        type: actionTypes.DECREASE_PRODUCT_QUANTITY_IN_CART
-    };
+    let state, action, updatedState;
 
-    const updatedState = cartReducer(state, action);
-    const { id: productID, price: productPrice } = action.payload.product;
-    const { totalQuantity: initialTotalQuantity,
-        totalPrice: initialTotalPrice } = state;
-    const { totalQuantity: updatedTotalQuantity,
-        totalPrice: updatedTotalPrice } = updatedState;
-    const initialProductQuantity = state.products[productID].quantity;
-    const updatedProductQuantity = updatedState.products[productID].quantity;
+    beforeEach(() => {
+        state = {
+            products: {
+                1000001: {
+                    product: { id: 1000001, price: 50, title: "Heme" },
+                    quantity: 2
+                },
+                1000003: {
+                    product: { id: 1000003, price: 40, title: 'MASHIKO' },
+                    quantity: 3
+                }
+            },
+            totalQuantity: 5,
+            totalPrice: 220,
+            alert: null,
+            openPopup: null
+        };
+
+        action = {
+            type: actionTypes.DECREASE_PRODUCT_QUANTITY_IN_CART,
+            payload: {
+                product: { id: 1000003, price: 40, title: 'MASHIKO' },
+                quantity: 3
+            }
+        };
+
+        updatedState = cartReducer(state, action);
+    });
 
     it('decrease a product quantity by 1', () => {
-        expect(updatedProductQuantity).toEqual(initialProductQuantity - 1);
+        expect(updatedState.products['1000003'].quantity).toEqual(2);
     });
 
     it('decrease total products quantity by 1', () => {
-        expect(updatedTotalQuantity).toEqual(initialTotalQuantity - 1);
+        expect(updatedState.totalQuantity).toEqual(4);
     });
 
     it('decrease total price by product price', () => {
-        expect(updatedTotalPrice).toEqual(initialTotalPrice - productPrice);
+        expect(updatedState.totalPrice).toEqual(220 - 40);
     });
 });
 
