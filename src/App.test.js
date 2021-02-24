@@ -86,36 +86,38 @@ describe('Reducer:', () => {
 });
 
 describe('Add product to the cart:', () => {
-    const state = {
-        products: {},
-        totalQuantity: 0,
-        totalPrice: 0,
-        alert: null,
-        openPopup: null
-    };
-    const action = {
-        ...actionMock,
-        type: actionTypes.ADD_PRODUCT_TO_CART
-    };
+    let state, action;
 
-    const state1 = { ...state, totalQuantity: 19 };
-    const action1 = { ...action };
-    action1.payload.quantity = 2;
-    const updatedState1 = cartReducer(state1, action1);
-
-    it('if total products quantity in cart will exceed max limit - product is not added and alert is displayed', () => {
-        expect(updatedState1.totalQuantity).toBeLessThanOrEqual(constant.TOTAL_MAX_QUANTITY_IN_CART);
-        expect(updatedState1.alert).toBe(constant.TOTAL_MAX_QUANTITY_ALERT);
+    beforeEach(() => {
+        state = {
+            products: {},
+            totalQuantity: 0,
+            totalPrice: 0,
+            alert: null,
+            openPopup: null
+        };
+        action = {
+            type: actionTypes.ADD_PRODUCT_TO_CART,
+            payload: {
+                product: { id: 1000003, price: 40, title: 'MASHIKO' },
+                quantity: 0
+            }
+        };
     });
 
-    const state2 = { ...state };
-    const action2 = { ...action };
-    action2.payload.quantity = 6;
-    const updatedState2 = cartReducer(state2, action2);
+    it('if total products quantity in cart will exceed max limit - product is not added and alert is displayed', () => {
+        state.totalQuantity = 19;
+        action.payload.quantity = 2;
+        const updatedState = cartReducer(state, action);
+        expect(updatedState.totalQuantity).toBeLessThanOrEqual(constant.TOTAL_MAX_QUANTITY_IN_CART);
+        expect(updatedState.alert).toBe(constant.TOTAL_MAX_QUANTITY_ALERT);
+    });
 
     it('if product quantity in cart will exceed max limit per one product - product is not added and alert is displayed', () => {
-        expect(updatedState2.products[action2.payload.product.id]).not.toBeDefined();
-        expect(updatedState2.alert).toBe(constant.ONE_PRODUCT_MAX_QUANTITY_ALERT);
+        action.payload.quantity = 6;
+        const updatedState = cartReducer(state, action);
+        expect(updatedState.products['1000003']).not.toBeDefined();
+        expect(updatedState.alert).toBe(constant.ONE_PRODUCT_MAX_QUANTITY_ALERT);
     });
 });
 
@@ -262,3 +264,42 @@ describe('Fetch products:', () => {
         expect(actions[0]).toEqual(action);
     });
 });
+
+describe('Add product to cart:', () => {
+    const initialStateMock = {
+        products: {},
+        totalQuantity: 0,
+        totalPrice: 0,
+        alert: null,
+        openPopup: null
+    };
+
+    const mockProduct = { id: '1000001', price: 40, title: 'MASHIKO' };
+
+    const action = {
+        type: actionTypes.ADD_PRODUCT_TO_CART,
+        payload: {
+            product: mockProduct,
+            quantity: 1
+        }
+    };
+
+    const middlewares = [thunk];
+    const mockStore = configureStore(middlewares);
+
+    it('should return an action object with that product', async () => {
+        const store = mockStore({
+            allProducts: [],
+            cart: initialStateMock
+        });
+
+        await store.dispatch(actionCreators.addProductToCart(mockProduct, 1));
+        const actions = store.getActions();
+        console.log('actions', actions);
+        const state = store.getState();
+        console.log('state', state);
+
+        expect(actions[0]).toEqual(action);
+    });
+});
+
