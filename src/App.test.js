@@ -255,7 +255,7 @@ describe('Fetch products:', () => {
     });
 });
 
-describe.only('Add product to cart:', () => {
+describe('Add product to cart:', () => {
     let store, state, product, action;
 
     beforeEach(() => {
@@ -281,6 +281,13 @@ describe.only('Add product to cart:', () => {
             }
         };
     });
+
+    it('call addProductToCart and setTimeout inside it', () => {
+        jest.useFakeTimers();
+        store.dispatch(actionCreators.addProductToCart(product, 1));
+        expect(setTimeout).toHaveBeenCalled();
+        expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), constant.ALERT_HIDE_DELAY);
+    });
     
     it('should return an action object with that product', async () => {
         const spy = jest.spyOn(actionCreators, 'addProductToCart');
@@ -289,12 +296,5 @@ describe.only('Add product to cart:', () => {
 
         expect(actions[0]).toEqual(action);
         expect(spy).toHaveBeenCalled();
-    });
-    
-    it('call addProductToCart and setTimeout inside it', () => {
-        jest.useFakeTimers();
-        store.dispatch(actionCreators.addProductToCart(product, 1));
-        expect(setTimeout).toHaveBeenCalled();
-        expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), constant.ALERT_HIDE_DELAY);
     });
 });
