@@ -24,7 +24,6 @@ const CartPopup = props => {
 
 const mapStateToProps = state => {
     return {
-        totalPrice: state.cart.totalPrice,
         totalQuantity: state.cart.totalQuantity,
         openPopup: state.cart.openPopup
     };
