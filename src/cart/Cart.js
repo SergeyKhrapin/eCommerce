@@ -1,62 +1,17 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { CART_HEADING, CART_OVERVIEW, CONTINUE_SHOPPING, SUBTOTAL, TOTAL, CART_EMPTY, PRODUCT, QUANTITY, ACTION } from '../constants';
+import { CART_HEADING, CONTINUE_SHOPPING } from '../constants';
 import { getFormattedPrice } from '../helpers';
-import CartItem from './CartItem';
+import CartProductsCaption from './CartProductsCaption';
+import CartProductsList from './CartProductsList';
+import CartOverview from './CartOverview';
+import CartEmpty from './CartEmpty';
 import './Cart.scss';
 
 const Cart = () => {
     const { products, totalPrice, totalQuantity } = useSelector(state => state.cart);
     const totalPriceValue = getFormattedPrice(totalPrice);
-
-    function renderCartCaption() {
-        return (
-            <div className="Cart-products-caption" key={1}>
-                <div className="row">
-                    <div className="col-7 text-start">{PRODUCT}</div>
-                    <div className="col-2">{QUANTITY}</div>
-                    <div className="col-2">{TOTAL}</div>
-                    <div className="col-1 text-end">{ACTION}</div>
-                </div>
-            </div>
-        );
-    }
-
-    function renderCartProducts() {
-        return Object.values(products).map((product, i) => <CartItem item={product} key={product.product.id} />);
-    }
-
-    function renderCartOverview() {
-        return (
-            <div className="Cart-products-overview" key={3}>
-                <div className="col-6 offset-md-6">
-                    <p className="Cart-products-overview--title">{CART_OVERVIEW}</p>
-                    <div className="Cart-products-overview--subtotal">
-                        <span>{SUBTOTAL}</span>
-                        <span>{totalPriceValue}</span>
-                    </div>
-                    <div className="Cart-products-overview--total">
-                        <span>{TOTAL}</span>
-                        <span className="text-dark">{totalPriceValue} CAD</span>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
-    const renders = [renderCartCaption, renderCartProducts, renderCartOverview];
-
-    function renderCartEmpty() {
-        return <h2>{CART_EMPTY}</h2>;
-    }
-
-    function renderCartContent() {
-        if (!totalQuantity) {
-            return renderCartEmpty();
-        }
-        return renders.map(render => render());
-    }
 
     return (
         <div className="Cart">
@@ -66,7 +21,15 @@ const Cart = () => {
                 </div>
                 <div className="row">
                     <section className="Cart-products">
-                        { renderCartContent() }
+                        { !totalQuantity ? (
+                            <CartEmpty />
+                        ) : (
+                            <>
+                                <CartProductsCaption />
+                                <CartProductsList products={products} />
+                                <CartOverview totalPriceValue={totalPriceValue} />
+                            </>
+                        )}
                     </section>
                 </div>
             </div>
