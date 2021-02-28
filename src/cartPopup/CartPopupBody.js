@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import CartPopupItem from './CartPopupItem';
 import CartPopupCTA from './CartPopupCTA';
 import CartEmpty from '../cart/CartEmpty';
-import { closeCartPopup, removeProductFromCart } from '../redux/actionCreators';
-import { getImageSrc, getFormattedPrice } from '../helpers';
+import { closeCartPopup } from '../redux/actionCreators';
 
-const CartPopupBody = ({ products, removeProductFromCart, closeCartPopup }) => {
+const CartPopupBody = ({ products, closeCartPopup }) => {
     return (
         <>
             <div
@@ -15,30 +15,7 @@ const CartPopupBody = ({ products, removeProductFromCart, closeCartPopup }) => {
             <div className="CartPopup" data-testid="cart-popup">
                 <div className="container">
                     { !products.length && <CartEmpty /> }
-                    { products.map(item => {
-                        const { product, quantity } = item;
-                        const { id, image, brand, title, price } = product;
-                        return (
-                            <div className="row" key={id}>
-                                <div className="col-12 d-flex text-start mb-4">
-                                    <img
-                                        className="CartPopup-image"
-                                        src={getImageSrc(image)}
-                                        alt={`${brand} - ${title}`} />
-                                    <div className="CartPopup-details">
-                                        <h5 className="CartPopup-details--title">{title}</h5>
-                                        <span className="CartPopup-details--quantity">x {quantity}</span>
-                                        <span className="CartPopup-details--brand product-brand">{brand}</span>
-                                        <span className="CartPopup-details--price">{getFormattedPrice(price)}</span>
-                                    </div>
-                                    <button
-                                        className="CartPopup-remove remove-button"
-                                        onClick={() => removeProductFromCart(product, quantity)}>
-                                    </button>
-                                </div>
-                            </div>
-                        );
-                    }) }
+                    { products.map(item => <CartPopupItem item={item} key={item.product.id} />) }
                     { products.length && <CartPopupCTA /> }
                 </div>
             </div>
@@ -53,7 +30,6 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-    removeProductFromCart,
     closeCartPopup
 };
 

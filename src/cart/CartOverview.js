@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { CART_OVERVIEW, SUBTOTAL, TOTAL } from '../constants';
-
 
 const CartOverview = ({ totalPriceValue }) => {
     return (
@@ -20,4 +19,4 @@ const CartOverview = ({ totalPriceValue }) => {
     );
 };
 
-export default CartOverview;
+export default memo(CartOverview);

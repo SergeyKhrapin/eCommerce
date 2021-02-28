@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { TOTAL, PRODUCT, QUANTITY, ACTION } from '../constants';
 
 const CartProductsCaption = () => {
@@ -14,4 +14,4 @@ const CartProductsCaption = () => {
     );
 }
 
-export default CartProductsCaption;
+export default memo(CartProductsCaption);
