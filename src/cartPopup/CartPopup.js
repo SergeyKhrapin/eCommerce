@@ -13,7 +13,9 @@ const CartPopup = props => {
             <div className="CartPopup-open">
                 <span
                     className="CartPopup-open--link"
-                    onClick={openCartPopup}>
+                    aria-expanded={openPopup ? 'true' : 'false'}
+                    onClick={openCartPopup}
+                    data-testid="cart-popup-open-link">
                         {`${CART_POPUP} ${totalQuantity ? `(${totalQuantity})` : ''}`}
                 </span>
             </div>

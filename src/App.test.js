@@ -5,6 +5,8 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
 import App from './App';
 import * as helpers from './helpers';
 import * as actionCreators from './redux/actionCreators';
@@ -288,7 +290,7 @@ describe('Add product to cart:', () => {
         expect(setTimeout).toHaveBeenCalled();
         expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), constant.ALERT_HIDE_DELAY);
     });
-    
+
     it('should return an action object with that product', async () => {
         const spy = jest.spyOn(actionCreators, 'addProductToCart');
         await store.dispatch(actionCreators.addProductToCart(product, 1));
@@ -296,5 +298,44 @@ describe('Add product to cart:', () => {
 
         expect(actions[0]).toEqual(action);
         expect(spy).toHaveBeenCalled();
+    });
+});
+
+describe('When cart popup is opened:', () => {
+    beforeEach(() => {
+        const mockStore = configureStore();
+
+        const store = mockStore({
+            allProducts: [],
+            cart: {
+                products: {},
+                openPopup: true
+            }
+        });
+
+        render(
+            <Provider store={store}>
+                <BrowserRouter>
+                    <App />
+                </BrowserRouter>
+            </Provider>
+        );
+    });
+
+    it('App container has a corresponding class', () => {
+        const app = screen.getByTestId('app-container');
+        expect(app).toHaveClass('cartPopup-opened');
+    });
+
+    it('cart popup container and overlay are displayed in DOM', () => {
+        const cartPopup = screen.getByTestId('cart-popup');
+        const cartPopupClose = screen.getByTestId('cart-popup-close');
+        expect(cartPopup).toBeInTheDocument();
+        expect(cartPopupClose).toBeInTheDocument();
+    });
+
+    it('open cart popup link has aria-expanded=true', () => {
+        const cartPopupOpenLink = screen.getByTestId('cart-popup-open-link');
+        expect(cartPopupOpenLink).toHaveAttribute('aria-expanded', 'true');
     });
 });

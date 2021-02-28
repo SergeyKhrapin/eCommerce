@@ -15,7 +15,8 @@ class App extends Component {
 
     render() {
         return (
-            <div className={`App${this.props.openPopup ? ' cartPopup-opened' : ''}`}>
+            <div className={`App${this.props.openPopup ? ' cartPopup-opened' : ''}`}
+                data-testid="app-container">
                 <header className="App-header">
                     <div className="container">
                         <div className="row">

@@ -3,6 +3,7 @@
 exports[`App component renders: correctly without products 1`] = `
 <div
   className="App"
+  data-testid="app-container"
 >
   <header
     className="App-header"
@@ -70,7 +71,9 @@ exports[`App component renders: correctly without products 1`] = `
             className="CartPopup-open"
           >
             <span
+              aria-expanded="false"
               className="CartPopup-open--link"
+              data-testid="cart-popup-open-link"
               onClick={[Function]}
             >
               My cart (5)

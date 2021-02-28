@@ -8,8 +8,11 @@ import { getImageSrc, getFormattedPrice } from '../helpers';
 const CartPopupBody = ({ products, removeProductFromCart, closeCartPopup }) => {
     return (
         <>
-            <div className="CartPopup-close" onClick={closeCartPopup}></div>
-            <div className="CartPopup">
+            <div
+                className="CartPopup-close"
+                onClick={closeCartPopup}
+                data-testid="cart-popup-close"></div>
+            <div className="CartPopup" data-testid="cart-popup">
                 <div className="container">
                     { !products.length && <CartEmpty /> }
                     { products.map(item => {
