@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
+import { store } from './redux/store';
+import { fetchProducts } from './redux/actionCreators';
 import logo from './logo.png';
 import Category from "./category/Category";
 import Cart from "./cart/Cart";
@@ -11,6 +13,10 @@ import './App.scss';
 class App extends Component {
     constructor() {
         super();
+    }
+
+    componentDidMount() {
+        store.dispatch(fetchProducts());
     }
 
     render() {
