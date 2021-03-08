@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from "react-helmet";
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { CART_HEADING, CONTINUE_SHOPPING } from '../constants';
@@ -14,27 +15,33 @@ const Cart = () => {
     const totalPriceValue = getFormattedPrice(totalPrice);
 
     return (
-        <div className="Cart">
-            <div className="container">
-                <div className="row">
-                    <h1 className="Cart-header text-dark">{CART_HEADING}</h1>
+        <>
+            <Helmet>
+                <meta property="og:description" content="Cart Page" />
+                <title>E-commerce single page app - Cart page</title>
+            </Helmet>
+            <div className="Cart">
+                <div className="container">
+                    <div className="row">
+                        <h1 className="Cart-header text-dark">{CART_HEADING}</h1>
+                    </div>
+                    <div className="row">
+                        <section className="Cart-products">
+                            { !totalQuantity ? (
+                                <CartEmpty />
+                            ) : (
+                                <>
+                                    <CartProductsCaption />
+                                    <CartProductsList products={products} />
+                                    <CartOverview totalPriceValue={totalPriceValue} />
+                                </>
+                            )}
+                        </section>
+                    </div>
                 </div>
-                <div className="row">
-                    <section className="Cart-products">
-                        { !totalQuantity ? (
-                            <CartEmpty />
-                        ) : (
-                            <>
-                                <CartProductsCaption />
-                                <CartProductsList products={products} />
-                                <CartOverview totalPriceValue={totalPriceValue} />
-                            </>
-                        )}
-                    </section>
-                </div>
+                <Link to="/">{CONTINUE_SHOPPING}</Link>
             </div>
-            <Link to="/">{CONTINUE_SHOPPING}</Link>
-        </div>
+        </>
     );
 };
 
