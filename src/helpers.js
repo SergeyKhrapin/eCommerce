@@ -9,4 +9,4 @@ export const getProductDetails = (products, id) => {
     
 };
 
-export const getPrettyTitleURL = title => title.replaceAll(/\s/g, '-');
+export const getPrettyTitleURL = title => title.split(' ').join('-');
