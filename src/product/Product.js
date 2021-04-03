@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import AddToCart from './AddToCart';
 import Alert from '../alert/Alert';
 import { getImageSrc, getFormattedPrice } from '../helpers';
-import withProduct from '../utils/withProducts';
+import requireProduct from '../utils/requireProduct';
 import './Product.scss';
 
 const Product = (props) => {
@@ -58,4 +58,4 @@ const Product = (props) => {
     )
 };
 
-export default withProduct()(Product);
+export default requireProduct(Product);
