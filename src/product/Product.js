@@ -1,24 +1,17 @@
 import React from 'react';
 import { Helmet } from "react-helmet";
 import { useSelector } from 'react-redux';
-import { useParams } from "react-router-dom";
 import AddToCart from './AddToCart';
 import Alert from '../alert/Alert';
-import { getProductDetails, getImageSrc, getFormattedPrice } from '../helpers';
+import { getImageSrc, getFormattedPrice } from '../helpers';
+import withProduct from '../utils/withProducts';
 import './Product.scss';
 
-const Product = () => {
-    const products = useSelector(store => store.allProducts);
+const Product = (props) => {
     const isAlert = useSelector(store => store.cart.alert);
-    const { id } = useParams();
-    const product = getProductDetails(products, id);
-    const { id: ID, image, brand, title, price, description } = product;
+    const { image, brand, title, price, description } = props;
     const imageSrc = getImageSrc(image);
     const priceValue = getFormattedPrice(price);
-
-    if (id != ID) {
-        return <h2>Something went wrong. Please go to Home and reload the page.</h2>;
-    }
 
     return (
         <>
@@ -55,7 +48,7 @@ const Product = () => {
                                 {description}
                             </p>
                             <div className="Product-addToCart mt-4">
-                                <AddToCart product={product} />
+                                <AddToCart product={props} />
                             </div>
                         </div>
                     </div>
@@ -65,4 +58,4 @@ const Product = () => {
     )
 };
 
-export default Product;
+export default withProduct()(Product);
