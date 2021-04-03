@@ -1,5 +1,5 @@
 // General
-export const SERVER_URL                       = 'products.json';
+export const SERVER_URL                       = '../../products.json';
 export const INCREASE                         = 'INCREASE';
 export const DECREASE                         = 'DECREASE';
 export const ONE_PRODUCT_MAX_QUANTITY_IN_CART = 5;
