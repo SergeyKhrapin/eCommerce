@@ -22,6 +22,10 @@ const requireProduct = (Component) => {
         return <Component {...product} />
     }
 
+    // For debugging purposes mostly
+    const enhancedComponentName = Component.displayName || Component.name || 'Component'
+    EnhancedComponent.displayName = `requireProduct(${enhancedComponentName})`
+
     return EnhancedComponent
 }
 
