@@ -10,18 +10,18 @@ const initialState = {
 };
 
 export const cartReducer = (state = initialState, action) => {
-    let { products: productsInCart,
+    const { products: productsInCart,
           totalQuantity: productsQuantityInCart,
           totalPrice } = state;
-    let { type, payload } = action;
-    let { product, quantity } = payload ?? {};
+    const { type, payload } = action;
+    const { product, quantity } = payload ?? {};
     
     switch (type) {
         case ADD_PRODUCT_TO_CART:
             // If the product is already in the cart - increase its quantity
             // If there is no yet this product in the cart:
             // ~~undefined?.quantity + quantity >>> ~~undefined + quantity >>> 0 + quantity
-            let increasedQuantity = ~~productsInCart[product.id]?.quantity + quantity;
+            const increasedQuantity = ~~productsInCart[product.id]?.quantity + quantity;
 
             // Max limit all products in the cart reached
             if (productsQuantityInCart + quantity > TOTAL_MAX_QUANTITY_IN_CART) {

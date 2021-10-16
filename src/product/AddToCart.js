@@ -5,9 +5,8 @@ import { addProductToCart } from '../redux/actionCreators';
 import { ADD_TO_CART, INCREASE, DECREASE, ONE_PRODUCT_MAX_QUANTITY_IN_CART } from '../constants';
 import styles from './product.module.css';
 
-const AddToCart = props => {
-    let { product, addProductToCart } = props;
-    let [ quantity, setQuantity ] = useState(1);
+const AddToCart = ({ product, addProductToCart }) => {
+    const [ quantity, setQuantity ] = useState(1);
 
     function handleQuantity(e) {
         switch (e.target.id) {

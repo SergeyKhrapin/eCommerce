@@ -5,7 +5,7 @@ import { addProductToCart, decreaseProductQuantityInCart } from '../redux/action
 import { INCREASE, DECREASE, ONE_PRODUCT_MAX_QUANTITY_IN_CART } from '../constants';
 
 const AddToCart = props => {
-    let { product,
+    const { product,
           quantity: productQuantity,
           addProductToCart,
           decreaseProductQuantityInCart } = props;
