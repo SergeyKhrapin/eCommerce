@@ -8,7 +8,7 @@ import Category from "./category/Category";
 import Cart from "./cart/Cart";
 import Product from "./product/Product";
 import CartPopup from './cartPopup/CartPopup';
-import './App.scss';
+import styles from "./app.module.css";
 
 class App extends Component {
     constructor() {
@@ -21,17 +21,16 @@ class App extends Component {
 
     render() {
         return (
-            <div className={`App${this.props.openPopup ? ' cartPopup-opened' : ''}`}
-                data-testid="app-container">
-                <header className="App-header">
+            <div className={`${styles.app} ${this.props.openPopup ? styles.appCartPopupOpened : ''}`} data-testid="app-container">
+                <header className={styles.header}>
                     <div className="container">
                         <div className="row">
                             <div className="col-2">
-                                <img src={logo} className="App-header-logo" alt="logo" />
+                                <img src={logo} className={styles.logo} alt="logo" />
                             </div>
                             <div className="col-8">
-                                <nav className="App-header-nav">
-                                    <ul className="App-header-nav--list">
+                                <nav className={styles.nav}>
+                                    <ul className={styles.list}>
                                         <li><Link to="/">HOME</Link></li>
                                         <li><a href="#">SHOP</a></li>
                                         <li><a href="#">JOURNAL</a></li>

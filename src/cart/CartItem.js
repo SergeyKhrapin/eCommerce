@@ -4,7 +4,7 @@ import AddToCart from "./AddToCart";
 import { removeProductFromCart } from '../redux/actionCreators';
 import { getImageSrc, getFormattedPrice } from "../helpers";
 import { COLOR } from "../constants";
-import './CartItem.scss';
+import styles from "./cart.module.css";
 
 const CartItem = props => {
     const { item, removeProductFromCart } = props;
@@ -14,32 +14,32 @@ const CartItem = props => {
     const priceValue = getFormattedPrice(price, quantity);
 
     return (
-        <div className="CartItem">
+        <div className={styles.item}>
             <div className="row">
                 <div className="col-7">
-                    <div className="CartItem-details">
+                    <div className={styles.itemDetails}>
                         <img
-                            className="CartItem-details--image"
+                            className={styles.itemImage}
                             src={imageSrc}
                             alt={`${brand} - ${title}`} />
                         <div>
-                            <p className="CartItem-details--brand">{brand}</p>
-                            <h3 className="CartItem-details--title text-dark">{title}</h3>
+                            <p className={styles.itemBrand}>{brand}</p>
+                            <h3 className={`${styles.itemTitle} text-dark`}>{title}</h3>
                             <p>{color ? `${COLOR}: ${color}` : ''}</p>
                         </div>
                     </div>
                 </div>
                 <div className="col-2">
-                    <div className="CartItem-quantity">
+                    <div>
                         <AddToCart product={product} quantity={quantity} />
                     </div>
                 </div>
                 <div className="col-2">
-                    <p className="CartItem-price">{priceValue}</p>
+                    <p>{priceValue}</p>
                 </div>
                 <div className="col-1 d-flex justify-content-end text-end">
                     <button
-                        className="CartItem-remove remove-button"
+                        className="remove-button"
                         onClick={() => removeProductFromCart(product, quantity)}></button>
                 </div>
             </div>

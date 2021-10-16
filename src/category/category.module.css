@@ -1,0 +1,27 @@
+.categoryBanner {
+  position: relative;
+  height: 340px;
+}
+.categoryBannerImage {
+  height: 100%;
+  width: 100%;
+}
+.categoryBannerContent {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 30%;
+  right: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  background-color: #393935;
+  color: white;
+}
+.categoryBannerContent h1 {
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid white;
+}

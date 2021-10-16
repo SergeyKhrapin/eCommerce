@@ -3,16 +3,16 @@ import { connect } from 'react-redux';
 import CartPopupBody from '../cartPopup/CartPopupBody';
 import { openCartPopup } from '../redux/actionCreators';
 import { CART_POPUP } from '../constants';
-import './CartPopup.scss';
+import styles from './cartPopup.module.css';
 
 const CartPopup = props => {
     const { totalQuantity, openCartPopup, openPopup } = props;
 
     return (
         <>
-            <div className="CartPopup-open">
+            <div className={styles.cartPopupOpen}>
                 <span
-                    className="CartPopup-open--link"
+                    className={styles.cartPopupOpenLink}
                     aria-expanded={openPopup ? 'true' : 'false'}
                     onClick={openCartPopup}
                     data-testid="cart-popup-open-link">

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { INCREASE, DECREASE } from '../constants';
-import './ProductQuantity.scss';
+import styles from './productQuantity.module.css';
 
 const ProductQuantity = props => {
     const { handleQuantity, quantity, product } = props;
@@ -11,14 +11,14 @@ const ProductQuantity = props => {
     const productQuantity = quantity ?? useSelector(store => store.cart.products[product.id].quantity);
 
     return (
-        <div className="product-quantity">
-            <div className="product-quantity__control">
+        <div className={styles.quantity}>
+            <div className={styles.control}>
                 <input
-                    className="product-quantity__control--quantity"
+                    className={styles.controlQuantity}
                     value={productQuantity}
                     type="text"
                     readOnly />
-                <div className="product-quantity__control--buttons" onClick={handleQuantity}>
+                <div className={styles.controlButtons} onClick={handleQuantity}>
                     <button id={INCREASE}>+</button>
                     <button id={DECREASE}>-</button>
                 </div>

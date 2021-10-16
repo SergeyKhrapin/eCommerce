@@ -1,0 +1,61 @@
+.cartPopup {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  width: 30%;
+  min-width: 400px;
+  padding: 26px 4px 16px;
+  background-color: white;
+}
+.cartPopupOpen {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+}
+.cartPopupOpenLink {
+  cursor: pointer;
+}
+.cartPopupClose {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  background-color: black;
+  opacity: 0.6;
+}
+.cartPopupImage {
+  width: 80px;
+  height: 80px;
+  margin-right: 16px;
+  object-fit: cover;
+}
+.cartPopupDetails {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  font-size: 0.8rem;
+}
+.cartPopupDetailsTitle {
+  margin: 0;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+.cartPopupDetailsBrand {
+  margin: 2px 0 0;
+}
+.cartPopupDetailsPrice {
+  font-weight: bold;
+}
+.cartPopupRemove {
+  align-self: end;
+  width: 16px;
+  height: 16px;
+}
+.viewCart button,
+.checkout button {
+  width: 100%;
+}

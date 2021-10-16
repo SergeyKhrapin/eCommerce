@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import ProductQuantity from '../productQuantity/ProductQuantity';
 import { addProductToCart } from '../redux/actionCreators';
 import { ADD_TO_CART, INCREASE, DECREASE, ONE_PRODUCT_MAX_QUANTITY_IN_CART } from '../constants';
-import '../productQuantity/ProductQuantity.scss';
+import styles from './product.module.css';
 
 const AddToCart = props => {
     let { product, addProductToCart } = props;
@@ -30,7 +30,7 @@ const AddToCart = props => {
         <>
             <ProductQuantity {...propsObj} />
             <button
-                className="Product-addToCart--button btn btn-dark"
+                className={`${styles.addToCartButton} btn btn-dark`}
                 onClick={() => addProductToCart(product, quantity)}>
                     {ADD_TO_CART}
             </button>

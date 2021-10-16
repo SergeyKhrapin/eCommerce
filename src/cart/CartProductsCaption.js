@@ -1,9 +1,10 @@
 import React, { memo } from 'react';
 import { TOTAL, PRODUCT, QUANTITY, ACTION } from '../constants';
+import styles from "./cart.module.css";
 
 const CartProductsCaption = () => {
     return (
-        <div className="Cart-products-caption" key={1}>
+        <div className={styles.caption} key={1}>
             <div className="row">
                 <div className="col-7 text-start">{PRODUCT}</div>
                 <div className="col-2">{QUANTITY}</div>

@@ -4,43 +4,40 @@ import { Link } from 'react-router-dom';
 import { addProductToCart } from '../redux/actionCreators';
 import { getImageSrc, getFormattedPrice, getPrettyTitleURL } from '../helpers';
 import { VIEW_DETAILS, ADD_TO_CART } from '../constants';
-import './ProductTile.scss';
+import styles from './productTile.module.css';
 
 const ProductTile = props => {
     const { addProductToCart, product } = props;
     const { id, image, brand, title, price } = product;
-
-    const rootClass = 'ProductTile';
-    const buttonClass = `${rootClass}-overlay--button btn btn-dark`;
     const imageSrc = getImageSrc(image);
     const priceValue = getFormattedPrice(price);
 
     return (
         <div className="col-4 mb-5">
-            <div className={rootClass}>
-                <div className={`${rootClass}-imageSection`}>
+            <div className={styles.productTile}>
+                <div className={styles.productTileImageSection}>
                     <img
                         src={imageSrc}
-                        className={`${rootClass}-image`}
+                        className={styles.productTileImage}
                         alt={`${brand} - ${title}`}/>
-                    <div className={`${rootClass}-overlay`}>
-                        <button className={`${buttonClass} mb-4`}>
+                    <div className={styles.productTileOverlay}>
+                        <button className={`${styles.productTileOverlayButton} btn btn-dark mb-4`}>
                             <Link to={`/product/${id}/${getPrettyTitleURL(title)}`}>{VIEW_DETAILS}</Link>
                         </button>
                         <button
-                            className={buttonClass}
+                            className={`${styles.productTileOverlayButton} btn btn-dark`}
                             onClick={() => addProductToCart(product)} >
                                 {ADD_TO_CART}
                         </button>
                     </div>
                 </div>
-                <p className={`${rootClass}-brand product-brand`}>
+                <p className="product-brand">
                     {brand}
                 </p>
-                <h3 className={`${rootClass}-title`}>
+                <h3 className={styles.productTileTitle}>
                     {title}
                 </h3>
-                <p className={`${rootClass}-price product-price`}>
+                <p className="product-price">
                     <meta itemProp="priceCurrency" content="USD" />
                     <span itemProp="price" content={priceValue}>
                         {priceValue}

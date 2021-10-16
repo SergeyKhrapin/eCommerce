@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { closeCartPopup } from '../redux/actionCreators';
 import { getFormattedPrice } from '../helpers';
 import { TOTAL, VIEW_CART, CHECKOUT } from '../constants';
+import styles from './cartPopup.module.css';
 
 const CartPopupCTA = ({ totalPrice, closeCartPopup }) => {
     return (
@@ -13,12 +14,12 @@ const CartPopupCTA = ({ totalPrice, closeCartPopup }) => {
                 <div className="col-6 text-end">{getFormattedPrice(totalPrice)}</div>
             </div>
             <div className="row mt-3">
-                <div className="CartPopup-viewCart col-6 text-start">
+                <div className={`${styles.viewCart} col-6 text-start`}>
                     <button className="btn btn-light">
                         <Link to="/cart" onClick={closeCartPopup}>{VIEW_CART}</Link>
                     </button>
                 </div>
-                <div className="CartPopup-checkout col-6 text-end">
+                <div className={`${styles.checkout} col-6 text-end`}>
                     <button className="btn btn-dark">{CHECKOUT}</button>
                 </div>
             </div>

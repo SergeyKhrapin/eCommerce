@@ -8,7 +8,7 @@ import CartProductsCaption from './CartProductsCaption';
 import CartProductsList from './CartProductsList';
 import CartOverview from './CartOverview';
 import CartEmpty from './CartEmpty';
-import './Cart.scss';
+import styles from "./cart.module.css";
 
 const Cart = () => {
     const { products, totalPrice, totalQuantity } = useSelector(state => state.cart);
@@ -20,13 +20,13 @@ const Cart = () => {
                 <meta property="og:description" content="Cart Page" />
                 <title>E-commerce single page app - Cart page</title>
             </Helmet>
-            <div className="Cart">
+            <div className={styles.cart}>
                 <div className="container">
                     <div className="row">
-                        <h1 className="Cart-header text-dark">{CART_HEADING}</h1>
+                        <h1 className={`${styles.header} text-dark`}>{CART_HEADING}</h1>
                     </div>
                     <div className="row">
-                        <section className="Cart-products">
+                        <section className={styles.products}>
                             { !totalQuantity ? (
                                 <CartEmpty />
                             ) : (

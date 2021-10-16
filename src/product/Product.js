@@ -5,7 +5,7 @@ import AddToCart from './AddToCart';
 import Alert from '../alert/Alert';
 import { getImageSrc, getFormattedPrice } from '../helpers';
 import requireProduct from '../utils/requireProduct';
-import './Product.scss';
+import styles from './product.module.css';
 
 const Product = (props) => {
     const isAlert = useSelector(store => store.cart.alert);
@@ -19,37 +19,33 @@ const Product = (props) => {
                 <meta property="og:description" content="Product Details Page" data-react-helmet="true" />
                 <title>E-commerce single page app - PDP</title>
             </Helmet>
-            <div className="Product">
-                <div className="container">
-                    { isAlert && <Alert /> }
-                    <div className="row">
-                        <div className="col-7">
-                            <div className="Product-imageSection">
-                                <img
-                                    src={imageSrc}
-                                    className="Product-image"
-                                    alt={`${brand} - ${title}`} />
-                            </div>
-                        </div>
-                        <div className="col-5">
-                            <p className="Product-brand product-brand">
-                                {brand}
-                            </p>
-                            <h1 className="Product-title">
-                                {title}
-                            </h1>
-                            <p className="Product-price product-price">
-                                <meta itemProp="priceCurrency" content="USD" />
-                                <span itemProp="price" content={priceValue}>
-                                    {priceValue}
-                                </span>
-                            </p>
-                            <p className="Product-description">
-                                {description}
-                            </p>
-                            <div className="Product-addToCart mt-4">
-                                <AddToCart product={props} />
-                            </div>
+            <div className="container">
+                { isAlert && <Alert /> }
+                <div className="row">
+                    <div className="col-7">
+                        <img
+                            src={imageSrc}
+                            className={styles.image}
+                            alt={`${brand} - ${title}`} />
+                    </div>
+                    <div className="col-5">
+                        <p className={`${styles.brand} product-brand`}>
+                            {brand}
+                        </p>
+                        <h1 className={styles.title}>
+                            {title}
+                        </h1>
+                        <p className={`${styles.price} product-price`}>
+                            <meta itemProp="priceCurrency" content="USD" />
+                            <span itemProp="price" content={priceValue}>
+                                {priceValue}
+                            </span>
+                        </p>
+                        <p className={styles.description}>
+                            {description}
+                        </p>
+                        <div className={`${styles.addToCart} mt-4`}>
+                            <AddToCart product={props} />
                         </div>
                     </div>
                 </div>

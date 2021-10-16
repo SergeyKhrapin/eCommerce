@@ -1,0 +1,39 @@
+.productTile {
+  position: relative;
+  padding-bottom: 10px;
+}
+.productTile:hover .productTileOverlay {
+  display: flex;
+}
+.productTileImageSection {
+  position: relative;
+}
+.productTileImage {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+.productTileTitle {
+  margin: 8px 0 0;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+}
+.productTileOverlay {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+.productTileOverlayButton {
+  width: 200px;
+  opacity: 0.8;
+}
+.productTileOverlayButton:hover {
+  opacity: 1;
+}

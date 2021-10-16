@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import ProductQuantity from '../productQuantity/ProductQuantity';
 import { addProductToCart, decreaseProductQuantityInCart } from '../redux/actionCreators';
 import { INCREASE, DECREASE, ONE_PRODUCT_MAX_QUANTITY_IN_CART } from '../constants';
-import '../productQuantity/ProductQuantity.scss';
 
 const AddToCart = props => {
     let { product,
