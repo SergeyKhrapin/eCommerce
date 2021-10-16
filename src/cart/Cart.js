@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from "react-helmet";
-import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { CART_HEADING, CONTINUE_SHOPPING } from '../constants';
 import { getFormattedPrice } from '../helpers';
@@ -10,8 +10,8 @@ import CartOverview from './CartOverview';
 import CartEmpty from './CartEmpty';
 import styles from "./cart.module.css";
 
-const Cart = () => {
-    const { products, totalPrice, totalQuantity } = useSelector(state => state.cart);
+const Cart = ({ cart }) => {
+    const { products, totalPrice, totalQuantity } = cart;
     const totalPriceValue = getFormattedPrice(totalPrice);
 
     return (
@@ -45,4 +45,10 @@ const Cart = () => {
     );
 };
 
-export default Cart;
+const mapStateToProps = (state) => {
+    return {
+        cart: state.cart
+    }
+};
+
+export default connect(mapStateToProps)(Cart);

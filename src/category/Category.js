@@ -1,19 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import Alert from '../alert/Alert';
 import { getImageSrc } from '../helpers';
 import { PRUDUCTS_UNAVAILABLE_MESSAGE } from '../constants';
 import ProductTile from './ProductTile';
 import styles from './category.module.css';
 
-const Category = () => {
-    const { products, isAlert } = useSelector(store => {
-        return {
-            products: store.allProducts,
-            isAlert: store.cart.alert
-        };
-    });
-    
+const Category = ({ products, isAlert }) => {
     function renderProducts() {
         if (!products.length) {
             return <h1>{PRUDUCTS_UNAVAILABLE_MESSAGE}</h1>;
@@ -42,4 +35,11 @@ const Category = () => {
     )
 }
 
-export default Category;
+const mapStateToProps = (state) => {
+    return {
+        products: state.allProducts,
+        isAlert: state.cart.alert
+    }
+};
+
+export default connect(mapStateToProps)(Category);

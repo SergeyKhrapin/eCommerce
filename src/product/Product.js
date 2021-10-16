@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from "react-helmet";
-import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import AddToCart from './AddToCart';
 import Alert from '../alert/Alert';
 import { getImageSrc, getFormattedPrice } from '../helpers';
@@ -8,8 +8,7 @@ import requireProduct from '../utils/requireProduct';
 import styles from './product.module.css';
 
 const Product = (props) => {
-    const isAlert = useSelector(store => store.cart.alert);
-    const { image, brand, title, price, description } = props;
+    const { image, brand, title, price, description, isAlert } = props;
     const imageSrc = getImageSrc(image);
     const priceValue = getFormattedPrice(price);
 
@@ -54,4 +53,10 @@ const Product = (props) => {
     )
 };
 
-export default requireProduct(Product);
+const mapStateToProps = (state) => {
+    return {
+        isAlert: state.cart.alert
+    }
+};
+
+export default connect(mapStateToProps)(requireProduct(Product));

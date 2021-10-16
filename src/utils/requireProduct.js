@@ -1,18 +1,16 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { useParams } from "react-router-dom";
 import { fetchProducts } from '../redux/actionCreators';
 import { getProductDetails } from '../helpers';
 
 const requireProduct = (Component) => {
-    function EnhancedComponent() {
-        const dispatch = useDispatch()
-        const products = useSelector(store => store.allProducts);
+    function EnhancedComponent({ products, fetchProducts }) {
         const { id } = useParams();
         const product = getProductDetails(products, id);
 
         if (!products.length) {
-            dispatch(fetchProducts());
+            fetchProducts();
         }
 
         if (id != product.id) {
@@ -23,10 +21,20 @@ const requireProduct = (Component) => {
     }
 
     // For debugging purposes mostly
-    const enhancedComponentName = Component.displayName || Component.name || 'Component'
-    EnhancedComponent.displayName = `requireProduct(${enhancedComponentName})`
+    const enhancedComponentName = Component.displayName || Component.name || 'Component';
+    EnhancedComponent.displayName = `requireProduct(${enhancedComponentName})`;
 
-    return EnhancedComponent
+    const mapStateToProps = (state) => {
+        return {
+            products: state.allProducts
+        }
+    };
+    
+    const mapDispatchToProps = {
+        fetchProducts
+    };
+
+    return connect(mapStateToProps, mapDispatchToProps)(EnhancedComponent);
 }
 
-export default requireProduct
+export default requireProduct;

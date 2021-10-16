@@ -1,14 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { INCREASE, DECREASE } from '../constants';
 import styles from './productQuantity.module.css';
 
 const ProductQuantity = props => {
-    const { handleQuantity, quantity, product } = props;
+    const { handleQuantity, quantity, product, allProducts } = props;
 
     // From Product page - use quantity from props
     // From Cart page - use quantity from store
-    const productQuantity = quantity ?? useSelector(store => store.cart.products[product.id].quantity);
+    const productQuantity = quantity ?? allProducts[product.id].quantity;
 
     return (
         <div className={styles.quantity}>
@@ -27,4 +27,10 @@ const ProductQuantity = props => {
     )
 };
 
-export default ProductQuantity;
+const mapStateToProps = (state) => {
+    return {
+        allProducts: state.cart.products
+    }
+};
+
+export default connect(mapStateToProps)(ProductQuantity);
