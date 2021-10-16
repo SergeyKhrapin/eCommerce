@@ -7,13 +7,6 @@ import ProductTile from './ProductTile';
 import styles from './category.module.css';
 
 const Category = ({ products, isAlert }) => {
-    function renderProducts() {
-        if (!products.length) {
-            return <h1>{PRUDUCTS_UNAVAILABLE_MESSAGE}</h1>;
-        }
-        return products.map(product => <ProductTile product={product} key={product.id} />)
-    }
-
     return (
         <div className="container">
             { isAlert && <Alert /> }
@@ -29,7 +22,11 @@ const Category = ({ products, isAlert }) => {
                 </div>
             </div>
             <div className="row mt-5">
-                { renderProducts() }
+                { products.length ? (
+                    products.map(product => <ProductTile product={product} key={product.id} />)
+                ) : (
+                    <h1>{PRUDUCTS_UNAVAILABLE_MESSAGE}</h1>
+                ) }
             </div>
         </div>
     )
