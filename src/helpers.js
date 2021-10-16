@@ -1,4 +1,4 @@
-import { CURRENCY } from "./constants";
+import { CURRENCY, ONE_PRODUCT_MAX_QUANTITY_IN_CART } from "./constants";
 
 export const getImageSrc = src => `/media/${src}`;
 
@@ -10,3 +10,15 @@ export const getProductDetails = (products, id) => {
 };
 
 export const getPrettyTitleURL = title => title.split(' ').join('-');
+
+export const increaseQuantity = (quantity, handler) => {
+    if (quantity < ONE_PRODUCT_MAX_QUANTITY_IN_CART) {
+        handler();
+    }
+};
+
+export const decreaseQuantity = (quantity, handler) => {
+    if (quantity > 1) {
+        handler();
+    }
+};

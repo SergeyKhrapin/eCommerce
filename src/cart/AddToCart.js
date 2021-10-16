@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ProductQuantity from '../productQuantity/ProductQuantity';
 import { addProductToCart, decreaseProductQuantityInCart } from '../redux/actionCreators';
-import { INCREASE, DECREASE, ONE_PRODUCT_MAX_QUANTITY_IN_CART } from '../constants';
+import { increaseQuantity, decreaseQuantity } from '../helpers';
 
 const AddToCart = props => {
     const { product,
@@ -10,24 +10,19 @@ const AddToCart = props => {
           addProductToCart,
           decreaseProductQuantityInCart } = props;
 
-    function handleQuantity(e) {
-        switch (e.target.id) {
-            case INCREASE:
-                if (productQuantity < ONE_PRODUCT_MAX_QUANTITY_IN_CART) {
-                    addProductToCart(product);
-                }
-                break;
-            case DECREASE:
-                if (productQuantity > 1) {
-                    decreaseProductQuantityInCart(product);
-                }
-                break;
-        }
+    const increase = () => {
+        increaseQuantity(productQuantity, () => {
+            addProductToCart(product);
+        })
     }
 
-    const propsObj = { handleQuantity, product };
+    const decrease = () => {
+        decreaseQuantity(productQuantity, () => {
+            decreaseProductQuantityInCart(product)
+        })
+    }
 
-    return <ProductQuantity {...propsObj} />;
+    return <ProductQuantity product={product} increase={increase} decrease={decrease} />;
 };
 
 const mapDispatchToProps = {

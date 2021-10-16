@@ -2,32 +2,28 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import ProductQuantity from '../productQuantity/ProductQuantity';
 import { addProductToCart } from '../redux/actionCreators';
-import { ADD_TO_CART, INCREASE, DECREASE, ONE_PRODUCT_MAX_QUANTITY_IN_CART } from '../constants';
+import { ADD_TO_CART } from '../constants';
+import { increaseQuantity, decreaseQuantity } from '../helpers';
 import styles from './product.module.css';
 
 const AddToCart = ({ product, addProductToCart }) => {
     const [ quantity, setQuantity ] = useState(1);
 
-    function handleQuantity(e) {
-        switch (e.target.id) {
-            case INCREASE:
-                if (quantity < ONE_PRODUCT_MAX_QUANTITY_IN_CART) {
-                    setQuantity(quantity => ++quantity);
-                }
-                break;
-            case DECREASE:
-                if (quantity > 1) {
-                    setQuantity(quantity => --quantity);
-                }
-                break;
-        }
+    const increase = () => {
+        increaseQuantity(quantity, () => {
+            setQuantity(quantity => ++quantity);
+        })
     }
 
-    const propsObj = { handleQuantity, quantity };
+    const decrease = () => {
+        decreaseQuantity(quantity, () => {
+            setQuantity(quantity => --quantity);
+        })
+    }
 
     return (
         <>
-            <ProductQuantity {...propsObj} />
+            <ProductQuantity quantity={quantity} increase={increase} decrease={decrease} />
             <button
                 className={`${styles.addToCartButton} btn btn-dark`}
                 onClick={() => addProductToCart(product, quantity)}>
