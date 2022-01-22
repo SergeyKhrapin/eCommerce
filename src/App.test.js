@@ -1,7 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
@@ -13,6 +12,7 @@ import * as actionCreators from './redux/actionCreators';
 import * as actionTypes from './redux/actionTypes';
 import * as reducer from './redux/reducers/cartReducer';
 import * as constant from './constants';
+import puppeteer from 'puppeteer';
 
 describe('Helper: ', () => {
     it('getFormattedPrice should transform number 40 to $40.00', () => {
@@ -188,41 +188,41 @@ describe('Decrease a product quantity in the cart should lead to:', () => {
     });
 });
 
-describe('App component renders:', () => {
-    it('correctly without products', () => {
-        const mockStore = configureStore();
-        const store = mockStore({
-            allProducts: [],
-            cart: {
-                products: {
-                    1000001: {
-                        product: { id: 1000001, price: 50, title: "Heme" },
-                        quantity: 2
-                    },
-                    1000003: {
-                        product: { id: 1000003, price: 40, title: 'MASHIKO' },
-                        quantity: 3
-                    }
-                },
-                totalQuantity: 5,
-                totalPrice: 220,
-                alert: null,
-                openPopup: null
-            }
-        });
+// describe('App component renders:', () => {
+//     it('correctly without products', () => {
+//         const mockStore = configureStore();
+//         const store = mockStore({
+//             allProducts: [],
+//             cart: {
+//                 products: {
+//                     1000001: {
+//                         product: { id: 1000001, price: 50, title: "Heme" },
+//                         quantity: 2
+//                     },
+//                     1000003: {
+//                         product: { id: 1000003, price: 40, title: 'MASHIKO' },
+//                         quantity: 3
+//                     }
+//                 },
+//                 totalQuantity: 5,
+//                 totalPrice: 220,
+//                 alert: null,
+//                 openPopup: null
+//             }
+//         });
 
-        const component = renderer.create(
-            <Provider store={store}>
-                <BrowserRouter>
-                    <App />
-                </BrowserRouter>
-            </Provider>
-        );
+//         const component = renderer.create(
+//             <Provider store={store}>
+//                 <BrowserRouter>
+//                     <App />
+//                 </BrowserRouter>
+//             </Provider>
+//         );
 
-        let tree = component.toJSON();
-        expect(tree).toMatchSnapshot();
-    });
-});
+//         let tree = component.toJSON();
+//         expect(tree).toMatchSnapshot();
+//     });
+// });
 
 describe('Fetch products:', () => {
     const mockProducts = [
@@ -257,85 +257,125 @@ describe('Fetch products:', () => {
     });
 });
 
-describe('Add product to cart:', () => {
-    let store, state, product, action;
+// describe('Add product to cart:', () => {
+//     let store, state, product, action;
 
-    beforeEach(() => {
-        const middlewares = [thunk];
-        const mockStore = configureStore(middlewares);
-        store = mockStore({});
+//     beforeEach(() => {
+//         const middlewares = [thunk];
+//         const mockStore = configureStore(middlewares);
+//         store = mockStore({});
 
-        state = {
-            products: {},
-            totalQuantity: 0,
-            totalPrice: 0,
-            alert: null,
-            openPopup: null
-        };
+//         state = {
+//             products: {},
+//             totalQuantity: 0,
+//             totalPrice: 0,
+//             alert: null,
+//             openPopup: null
+//         };
 
-        product = { id: '1000001', price: 40, title: 'MASHIKO' };
+//         product = { id: '1000001', price: 40, title: 'MASHIKO' };
 
-        action = {
-            type: actionTypes.ADD_PRODUCT_TO_CART,
-            payload: {
-                product: product,
-                quantity: 1
-            }
-        };
-    });
+//         action = {
+//             type: actionTypes.ADD_PRODUCT_TO_CART,
+//             payload: {
+//                 product: product,
+//                 quantity: 1
+//             }
+//         };
+//     });
 
-    it('call addProductToCart and setTimeout inside it', () => {
-        jest.useFakeTimers();
-        store.dispatch(actionCreators.addProductToCart(product, 1));
-        expect(setTimeout).toHaveBeenCalled();
-        expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), constant.ALERT_HIDE_DELAY);
-    });
+//     it('call addProductToCart and setTimeout inside it', () => {
+//         jest.useFakeTimers();
+//         store.dispatch(actionCreators.addProductToCart(product, 1));
+//         expect(setTimeout).toHaveBeenCalled();
+//         expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), constant.ALERT_HIDE_DELAY);
+//     });
 
-    it('should return an action object with that product', async () => {
-        const spy = jest.spyOn(actionCreators, 'addProductToCart');
-        await store.dispatch(actionCreators.addProductToCart(product, 1));
-        const actions = store.getActions();
+//     it('should return an action object with that product', async () => {
+//         const spy = jest.spyOn(actionCreators, 'addProductToCart');
+//         await store.dispatch(actionCreators.addProductToCart(product, 1));
+//         const actions = store.getActions();
 
-        expect(actions[0]).toEqual(action);
-        expect(spy).toHaveBeenCalled();
-    });
-});
+//         expect(actions[0]).toEqual(action);
+//         expect(spy).toHaveBeenCalled();
+//     });
+// });
 
-describe('When cart popup is opened:', () => {
-    beforeEach(() => {
-        const mockStore = configureStore();
+// describe('When cart popup is opened:', () => {
+//     beforeEach(() => {
+//         const mockStore = configureStore();
 
-        const store = mockStore({
-            allProducts: [],
-            cart: {
-                products: {},
-                openPopup: true
-            }
-        });
+//         const store = mockStore({
+//             allProducts: [],
+//             cart: {
+//                 products: {},
+//                 openPopup: true
+//             }
+//         });
 
-        render(
-            <Provider store={store}>
-                <BrowserRouter>
-                    <App />
-                </BrowserRouter>
-            </Provider>
-        );
-    });
+//         render(
+//             <Provider store={store}>
+//                 <BrowserRouter>
+//                     <App />
+//                 </BrowserRouter>
+//             </Provider>
+//         );
+//     });
 
-    it('App container has a corresponding class', () => {
-        const app = screen.getByTestId('app-container');
-        expect(app).toHaveClass('cartPopup-opened');
-    });
+//     it('App container has a corresponding class', () => {
+//         const app = screen.getByTestId('app-container');
+//         expect(app).toHaveClass('cartPopup-opened');
+//     });
 
-    it('cart popup container and overlay are displayed in DOM', () => {
-        const cartPopup = screen.getByTestId('cart-popup');
-        const cartPopupClose = screen.getByTestId('cart-popup-close');
-        expect(cartPopup).toBeInTheDocument();
-        expect(cartPopupClose).toBeInTheDocument();
-    });
+//     it('cart popup container and overlay are displayed in DOM', () => {
+//         const cartPopup = screen.getByTestId('cart-popup');
+//         const cartPopupClose = screen.getByTestId('cart-popup-close');
+//         expect(cartPopup).toBeInTheDocument();
+//         expect(cartPopupClose).toBeInTheDocument();
+//     });
 
-    it('open cart popup link has aria-expanded=true', () => {
-        const cartPopupOpenLink = screen.getByTestId('cart-popup-open-link');
-        expect(cartPopupOpenLink).toHaveAttribute('aria-expanded', 'true');
-    });
-});
+//     it('open cart popup link has aria-expanded=true', () => {
+//         const cartPopupOpenLink = screen.getByTestId('cart-popup-open-link');
+//         expect(cartPopupOpenLink).toHaveAttribute('aria-expanded', 'true');
+//     });
+// });
+
+/* ================
+    e2e tests
+=================== */
+
+test('Homepage is loaded successfully', async () => {
+  const browser = await puppeteer.launch({
+    headless: false,
+    defaultViewport: null,
+    args: ['--window-size=1530,800'],
+  });
+  const page = await browser.newPage();
+  await page.goto('http://localhost:3000/');
+
+	// add 2 products to cart
+	await page.hover('#productTile-1000001');
+	await page.click('#product-1000001');
+	await page.waitForTimeout(1000);
+	await page.hover('#productTile-1000002');
+	await page.click('#product-1000002');
+	
+	// open cart popup
+	await page.evaluateHandle(() => {
+		document.querySelector('[data-testid="cart-popup-open-link"]').click();
+	})
+
+	// check if cart popup is really opened
+	const isPopupOpened = await page.$$eval('[data-testid="cart-popup"]', items => {
+		// return item; Known issue - puppeteer returns undefined!
+		return items.length;
+	})
+	expect(isPopupOpened).toEqual(1);
+
+	// check the amount of items in the cart
+	const itemsInCart = await page.$$eval('[data-testid="cart-popup-item"]', items => items.length)
+	// TODO: this fails sometimes when tests run for the first time!
+	expect(itemsInCart).toEqual(2);
+
+	// await browser.close();
+}, 100000)

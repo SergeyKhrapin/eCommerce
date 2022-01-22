@@ -14,7 +14,7 @@ const ProductTile = props => {
 
     return (
         <div className="col-4 mb-5">
-            <div className={styles.productTile}>
+            <div id={`productTile-${id}`} className={styles.productTile}>
                 <div className={styles.productTileImageSection}>
                     <img
                         src={imageSrc}
@@ -25,6 +25,7 @@ const ProductTile = props => {
                             <Link to={`/product/${id}/${getPrettyTitleURL(title)}`}>{VIEW_DETAILS}</Link>
                         </button>
                         <button
+                            id={`product-${id}`}
                             className={`${styles.productTileOverlayButton} btn btn-dark`}
                             onClick={() => addProductToCart(product)} >
                                 {ADD_TO_CART}

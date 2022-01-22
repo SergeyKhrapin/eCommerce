@@ -10,7 +10,7 @@ const CartPopupItem = ({ item, removeProductFromCart }) => {
 
     return (
         <div className="row">
-            <div className="col-12 d-flex text-start mb-4">
+            <div className="col-12 d-flex text-start mb-4" data-testid="cart-popup-item">
                 <img
                     className={styles.cartPopupImage}
                     src={getImageSrc(image)}

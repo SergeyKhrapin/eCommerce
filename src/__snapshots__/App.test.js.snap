@@ -2,11 +2,11 @@
 
 exports[`App component renders: correctly without products 1`] = `
 <div
-  className="App"
+  className="app "
   data-testid="app-container"
 >
   <header
-    className="App-header"
+    className="header"
   >
     <div
       className="container"
@@ -19,7 +19,7 @@ exports[`App component renders: correctly without products 1`] = `
         >
           <img
             alt="logo"
-            className="App-header-logo"
+            className="logo"
             src="logo.png"
           />
         </div>
@@ -27,10 +27,10 @@ exports[`App component renders: correctly without products 1`] = `
           className="col-8"
         >
           <nav
-            className="App-header-nav"
+            className="nav"
           >
             <ul
-              className="App-header-nav--list"
+              className="list"
             >
               <li>
                 <a
@@ -68,11 +68,11 @@ exports[`App component renders: correctly without products 1`] = `
           className="col-2"
         >
           <div
-            className="CartPopup-open"
+            className="cartPopupOpen"
           >
             <span
               aria-expanded="false"
-              className="CartPopup-open--link"
+              className="cartPopupOpenLink"
               data-testid="cart-popup-open-link"
               onClick={[Function]}
             >
@@ -84,45 +84,41 @@ exports[`App component renders: correctly without products 1`] = `
     </div>
   </header>
   <div
-    className="Category"
+    className="container"
   >
     <div
-      className="container"
+      className="row"
     >
       <div
-        className="row"
+        className="col-12"
       >
         <div
-          className="col-12"
+          className="categoryBanner"
         >
+          <img
+            alt="Home page banner"
+            className="categoryBannerImage"
+            src="/media/plates-header.jpg"
+          />
           <div
-            className="Category-banner"
+            className="categoryBannerContent"
           >
-            <img
-              alt="Home page banner"
-              className="Category-banner--image"
-              src="/media/plates-header.jpg"
-            />
-            <div
-              className="Category-banner--content"
-            >
-              <h1>
-                Plates
-              </h1>
-              <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum eveniet rem ad culpa quidem incidunt laborum accusamus eius earum animi aliquid corporis inventore ex, dignissimos consequuntur expedita, vitae distinctio odit.
-              </p>
-            </div>
+            <h1>
+              Plates
+            </h1>
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum eveniet rem ad culpa quidem incidunt laborum accusamus eius earum animi aliquid corporis inventore ex, dignissimos consequuntur expedita, vitae distinctio odit.
+            </p>
           </div>
         </div>
       </div>
-      <div
-        className="row mt-5"
-      >
-        <h1>
-          The products are unavailable. Sorry for inconvenience.
-        </h1>
-      </div>
+    </div>
+    <div
+      className="row mt-5"
+    >
+      <h1>
+        The products are unavailable. Sorry for inconvenience.
+      </h1>
     </div>
   </div>
 </div>
